@@ -11,6 +11,6 @@ class Room extends Model
 
     public $table = 'rooms';
 
-    public $fillable = ['key'];
+    public $fillable = ['key', 'status'];
 
 }

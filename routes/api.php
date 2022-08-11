@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,15 +18,13 @@ use Illuminate\Support\Facades\Route;
 //});
 Route::namespace('App\Http\Controllers\Api\V1')->group(function () {
     Route::prefix('v1')->group(function () {
-        Route::prefix('room')->group(function () {
-            Route::post('store', [\App\Http\Controllers\Api\V1\Deck\RoomController::class, 'store']);
-            Route::delete('delete/{room}', [\App\Http\Controllers\Api\V1\Deck\RoomController::class, 'delete']);
-        });
-        Route::prefix('deck')->group(function () {
-            Route::prefix('spell')->group(function () {
-                Route::post('new', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'new']);
-                Route::post('clear', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'clear']);
-            });
-        });
+
+        Route::post('room/store', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'store']);
+        Route::get('room', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'list']);
+        Route::get('room/show/{room}', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'show']);
+        Route::delete('room/delete/{room}', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'delete']);
+
+        Route::post('deck/spell/new', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'new']);
+        Route::post('deck/spell/clear', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'clear']);
     });
 });
