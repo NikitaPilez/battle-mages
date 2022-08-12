@@ -26,5 +26,6 @@ Route::namespace('App\Http\Controllers\Api\V1')->group(function () {
 
         Route::post('deck/spell/new', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'new']);
         Route::post('deck/spell/clear', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'clear']);
+        Route::post('deck/spell/handOut', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'handOut']);
     });
 });

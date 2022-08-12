@@ -25,4 +25,9 @@ class SpellController extends Controller
     {
 
     }
+
+    public function handOut(Request $request, SpellServices $spellServices)
+    {
+        $spellServices->handOut($request->input('room_id'));
+    }
 }
