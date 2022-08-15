@@ -43,6 +43,17 @@ class RoomController extends Controller
         return new RoomResource($room);
     }
 
+    public function update(Request $request, int $roomId): JsonResponse
+    {
+        $room = Room::findOrFail($roomId);
+        $room->update($request->all());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Record updated',
+        ]);
+    }
+
     public function delete(int $roomId)
     {
         Room::find($roomId)->delete();

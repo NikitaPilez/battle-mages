@@ -21,8 +21,9 @@ Route::namespace('App\Http\Controllers\Api\V1')->group(function () {
 
         Route::post('room/store', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'store']);
         Route::get('room', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'list']);
-        Route::get('room/show/{room}', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'show']);
-        Route::delete('room/delete/{room}', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'delete']);
+        Route::get('room/show/{roomId}', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'show']);
+        Route::put('room/update/{roomId}', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'update']);
+        Route::delete('room/delete/{roomId}', [\App\Http\Controllers\Api\V1\Room\RoomController::class, 'delete']);
 
         Route::post('deck/spell/new', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'new']);
         Route::post('deck/spell/clear', [\App\Http\Controllers\Api\V1\Deck\SpellController::class, 'clear']);
