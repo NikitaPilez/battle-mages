@@ -2,36 +2,36 @@
 
 namespace App\Http\Controllers\Api\V1\Deck;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Resources\V1\Spells\SpellCardDeckCollection;
-use App\Http\Resources\V1\User\UserSpellResource;
-use App\Models\User;
 use App\Models\V1\Deck\SpellCardDeck;
 use App\Services\V1\Deck\SpellServices;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class SpellController extends Controller
+class SpellController extends BaseController
 {
-    public function new(Request $request, SpellServices $spellServices)
+    public function new(Request $request, SpellServices $spellServices): JsonResponse
     {
         $spellCardDecks = $spellServices->newDeck($request->input('room_id'));
-        return response()->json(['data' => $spellCardDecks]);
+        return $this->sendResponse($spellCardDecks);
     }
 
-    public function clear(Request $request, SpellServices $spellServices)
+    public function clear(Request $request, SpellServices $spellServices): JsonResponse
     {
         $spellServices->clearDeckByRoom($request->input('room_id'));
-
-        return response()->json(true);
+        return $this->sendResponse(message: 'success');
     }
 
-    public function playerCards(int $userId)
+    public function playerCards(int $userId): JsonResponse
     {
         return response()->json(new SpellCardDeckCollection(SpellCardDeck::where('user_id', $userId)->paginate()));
     }
 
-    public function handOut(Request $request, SpellServices $spellServices)
+    public function handOut(Request $request, SpellServices $spellServices): JsonResponse
     {
-        $spellServices->handOut($request->input('room_id'));
+        $roomId = $request->input('room_id');
+        $spellServices->handOut($roomId);
+        return $this->sendResponse(message: 'success');
     }
 }

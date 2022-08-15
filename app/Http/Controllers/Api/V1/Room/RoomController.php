@@ -2,23 +2,29 @@
 
 namespace App\Http\Controllers\Api\V1\Room;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Resources\V1\Room\RoomCollection;
 use App\Http\Resources\V1\Room\RoomResource;
 use App\Models\V1\Room\Room;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class RoomController extends Controller
+class RoomController extends BaseController
 {
     public function store(Request $request): JsonResponse
     {
+        $validator = Validator::make($request->all(), [
+            'key' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation error', $validator->errors());
+        }
+
         $query = Room::create($request->all());
 
-        return response()->json([
-            'status' => 'success',
-            'record' => $query->id,
-        ]);
+        return $this->sendResponse(['id' => $query->id]);
     }
 
     public function list(Request $request)
@@ -48,19 +54,12 @@ class RoomController extends Controller
         $room = Room::findOrFail($roomId);
         $room->update($request->all());
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Record updated',
-        ]);
+        return $this->sendResponse($room);
     }
 
     public function delete(int $roomId)
     {
-        Room::find($roomId)->delete();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Record deleted',
-        ]);
+        Room::findOrFail($roomId)->delete();
+        return $this->sendResponse(message: 'success');
     }
 }

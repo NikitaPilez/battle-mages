@@ -2,9 +2,9 @@
 
 namespace App\Services\V1\Deck;
 
-use App\Models\User;
 use App\Models\V1\Deck\Spell;
 use App\Models\V1\Deck\SpellCardDeck;
+use App\Models\V1\User\User;
 use Illuminate\Database\Eloquent\Collection;
 
 class SpellServices

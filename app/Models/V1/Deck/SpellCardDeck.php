@@ -2,8 +2,8 @@
 
 namespace App\Models\V1\Deck;
 
-use App\Models\User;
 use App\Models\V1\Room\Room;
+use App\Models\V1\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
