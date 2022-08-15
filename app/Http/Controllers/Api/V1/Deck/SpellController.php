@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Api\V1\Deck;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\Spells\SpellCardDeckCollection;
+use App\Http\Resources\V1\User\UserSpellResource;
+use App\Models\User;
+use App\Models\V1\Deck\SpellCardDeck;
 use App\Services\V1\Deck\SpellServices;
 use Illuminate\Http\Request;
 
@@ -21,9 +25,9 @@ class SpellController extends Controller
         return response()->json(true);
     }
 
-    public function list()
+    public function playerCards(int $userId)
     {
-
+        return response()->json(new SpellCardDeckCollection(SpellCardDeck::where('user_id', $userId)->paginate()));
     }
 
     public function handOut(Request $request, SpellServices $spellServices)
