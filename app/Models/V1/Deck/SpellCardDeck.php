@@ -12,8 +12,11 @@ class SpellCardDeck extends Model
     use HasFactory;
 
     const AVAILABLE_AMOUNT_ON_HAND = 8;
+    const AVAILABLE_STATUSES = ['deck', 'on-hands', 'ready', 'in-game', 'trash'];
 
     public $table = 'spell_card_deck';
+
+    public $fillable = ['status'];
 
     public function user()
     {

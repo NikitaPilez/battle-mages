@@ -19,6 +19,7 @@ class SpellCardDeckResource extends JsonResource
             'spell' => $this->spell,
             'room' => $this->room,
             'user' => $this->user,
+            'status' => $this->status,
         ];
     }
 }

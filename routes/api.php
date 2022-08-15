@@ -36,6 +36,7 @@ Route::prefix('v1')->group(function () {
             Route::post('deck/spell/new', 'new');
             Route::post('deck/spell/clear',  'clear');
             Route::post('deck/spell/handOut', 'handOut');
+            Route::post('deck/spell/changeStatus', 'changeStatus')->middleware('can-change-spell-status');
             Route::get('deck/spell/player-cards/{userId}', 'playerCards');
         });
     });

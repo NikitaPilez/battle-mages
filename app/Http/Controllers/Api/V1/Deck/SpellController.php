@@ -8,6 +8,8 @@ use App\Models\V1\Deck\SpellCardDeck;
 use App\Services\V1\Deck\SpellServices;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class SpellController extends BaseController
 {
@@ -33,5 +35,20 @@ class SpellController extends BaseController
         $roomId = $request->input('room_id');
         $spellServices->handOut($roomId);
         return $this->sendResponse(message: 'success');
+    }
+
+    public function changeStatus(Request $request, SpellServices $spellServices): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => [Rule::in(SpellCardDeck::AVAILABLE_STATUSES)]
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('Validation error', $validator->errors());
+        }
+
+        $spellCardDeck = $spellServices->changeSpellStatus($request->input('spellCardDeckId'), $request->input('status'));
+
+        return $this->sendResponse($spellCardDeck);
     }
 }

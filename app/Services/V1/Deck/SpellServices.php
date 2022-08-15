@@ -2,6 +2,7 @@
 
 namespace App\Services\V1\Deck;
 
+use App\Http\Resources\V1\Spells\SpellCardDeckResource;
 use App\Models\V1\Deck\Spell;
 use App\Models\V1\Deck\SpellCardDeck;
 use App\Models\V1\User\User;
@@ -51,5 +52,13 @@ class SpellServices
                 }
             }
         }
+    }
+
+    public function changeSpellStatus(int $spellCardDeckId, string $status): SpellCardDeckResource
+    {
+        $spellCardDeck = SpellCardDeck::findOrFail($spellCardDeckId);
+        $spellCardDeck->update(['status' => $status]);
+
+        return new SpellCardDeckResource($spellCardDeck);
     }
 }

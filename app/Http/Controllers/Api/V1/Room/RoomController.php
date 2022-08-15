@@ -49,12 +49,12 @@ class RoomController extends BaseController
         return new RoomResource($room);
     }
 
-    public function update(Request $request, int $roomId): JsonResponse
+    public function update(Request $request, int $roomId): RoomResource
     {
         $room = Room::findOrFail($roomId);
         $room->update($request->all());
 
-        return $this->sendResponse($room);
+        return new RoomResource($room);
     }
 
     public function delete(int $roomId)
