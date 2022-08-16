@@ -3,52 +3,44 @@
 namespace App\Http\Controllers\Api\V1\Deck;
 
 use App\Http\Controllers\Api\V1\BaseController;
+use App\Http\Requests\V1\Spell\ChangeStatusRequest;
+use App\Http\Requests\V1\Spell\MakeReadyToGoRequest;
+use App\Http\Requests\V1\Spell\NewDeckRequest;
 use App\Http\Resources\V1\Spells\SpellCardDeckCollection;
 use App\Models\V1\Deck\SpellCardDeck;
 use App\Services\V1\Deck\SpellServices;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class SpellController extends BaseController
 {
-    public function new(Request $request, SpellServices $spellServices): JsonResponse
+    public function new(NewDeckRequest $request, SpellServices $spellServices): JsonResponse
     {
-        $spellCardDecks = $spellServices->newDeck($request->input('room_id'));
-        return $this->sendResponse($spellCardDecks);
+        $request->validated();
+        return $this->sendResponse($spellServices->newDeck($request->input('roomId')));
     }
 
-    public function clear(Request $request, SpellServices $spellServices): JsonResponse
+    public function playerSpells(int $userId): JsonResponse
     {
-        $spellServices->clearDeckByRoom($request->input('room_id'));
-        return $this->sendResponse(message: 'success');
-    }
-
-    public function playerCards(int $userId): JsonResponse
-    {
-        return response()->json(new SpellCardDeckCollection(SpellCardDeck::where('user_id', $userId)->paginate()));
+        return response()->json(new SpellCardDeckCollection(SpellCardDeck::where('user_id', $userId)->get()));
     }
 
     public function handOut(Request $request, SpellServices $spellServices): JsonResponse
     {
-        $roomId = $request->input('room_id');
-        $spellServices->handOut($roomId);
+        $spellServices->handOut($request->input('roomId'));
         return $this->sendResponse(message: 'success');
     }
 
-    public function changeStatus(Request $request, SpellServices $spellServices): JsonResponse
+    public function changeStatus(ChangeStatusRequest $request, SpellServices $spellServices): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'status' => [Rule::in(SpellCardDeck::AVAILABLE_STATUSES)]
-        ]);
+        $request->validated();
+        return $this->sendResponse($spellServices->changeSpellStatus($request->input('spellCardDeckId'), $request->input('status')));
+    }
 
-        if ($validator->fails()) {
-            return $this->sendError('Validation error', $validator->errors());
-        }
-
-        $spellCardDeck = $spellServices->changeSpellStatus($request->input('spellCardDeckId'), $request->input('status'));
-
-        return $this->sendResponse($spellCardDeck);
+    public function readyToGo(MakeReadyToGoRequest $request, SpellServices $spellServices): JsonResponse
+    {
+        $request->validated();
+        $spellServices->makeReadyToGo($request->input('userId'));
+        return $this->sendResponse(message: 'success');
     }
 }

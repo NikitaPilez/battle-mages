@@ -30,7 +30,7 @@ class SpellServices
         return $spellCardDecks;
     }
 
-    public function clearDeckByRoom(int $roomId)
+    public function clearDeckByRoom(int $roomId): void
     {
         SpellCardDeck::where('room_id', $roomId)->delete();
     }
@@ -60,5 +60,16 @@ class SpellServices
         $spellCardDeck->update(['status' => $status]);
 
         return new SpellCardDeckResource($spellCardDeck);
+    }
+
+    public function makeReadyToGo(int $userId)
+    {
+        $user = User::findOrFail($userId);
+        $spellCardDeck = SpellCardDeck::where('user_id', $user->id)->where('room_id', $user->room->id)->where('status', '=', 'ready')->get();
+        if ($spellCardDeck->count() > 3) {
+        } else {
+            $user->is_ready = 1;
+            $user->save();
+        }
     }
 }
