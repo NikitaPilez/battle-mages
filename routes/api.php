@@ -36,7 +36,7 @@ Route::prefix('v1')->group(function () {
             Route::post('deck/spell/new', 'new');
             Route::post('deck/spell/handOut', 'handOut');
             Route::post('deck/spell/changeStatus', 'changeStatus');
-            Route::get('deck/spell/player-cards/{userId}', 'playerSpells');
+            Route::get('deck/spell/player-cards', 'playerSpells');
             Route::post('deck/spell/ready-to-go', 'readyToGo');
         });
     });

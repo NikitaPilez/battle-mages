@@ -2,6 +2,7 @@
 
 namespace App\Services\V1\Deck;
 
+use App\Http\Resources\V1\Spells\SpellCardDeckCollection;
 use App\Http\Resources\V1\Spells\SpellCardDeckResource;
 use App\Models\V1\Deck\Spell;
 use App\Models\V1\Deck\SpellCardDeck;
@@ -66,10 +67,18 @@ class SpellServices
     {
         $user = User::findOrFail($userId);
         $spellCardDeck = SpellCardDeck::where('user_id', $user->id)->where('room_id', $user->room->id)->where('status', '=', 'ready')->get();
-        if ($spellCardDeck->count() > 3) {
-        } else {
+        if (!$spellCardDeck->count() > 3) {
             $user->is_ready = 1;
             $user->save();
         }
+    }
+
+    public function getPlayerCards(int $userId, string $status = null)
+    {
+        $query = SpellCardDeck::where('user_id', $userId);
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+        return new SpellCardDeckCollection($query->get());
     }
 }
