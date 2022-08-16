@@ -38,6 +38,7 @@ Route::prefix('v1')->group(function () {
             Route::post('deck/spell/changeStatus', 'changeStatus');
             Route::get('deck/spell/player-cards', 'playerSpells');
             Route::post('deck/spell/ready-to-go', 'readyToGo');
+            Route::get('deck/spell/roll-dice', 'rollDice');
         });
     });
 });

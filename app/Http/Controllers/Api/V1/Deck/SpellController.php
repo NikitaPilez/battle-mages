@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Spell\ChangeStatusRequest;
 use App\Http\Requests\V1\Spell\GetPlayerCardsRequest;
 use App\Http\Requests\V1\Spell\MakeReadyToGoRequest;
 use App\Http\Requests\V1\Spell\NewDeckRequest;
+use App\Http\Requests\V1\Spell\RollDiceRequest;
 use App\Services\V1\Deck\SpellServices;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -43,5 +44,11 @@ class SpellController extends BaseController
         $request->validated();
         $spellServices->makeReadyToGo($request->input('userId'));
         return $this->sendResponse(message: 'success');
+    }
+
+    public function rollDice(RollDiceRequest $request, SpellServices $spellServices): JsonResponse
+    {
+        $request->validated();
+        return $this->sendResponse($spellServices->rollDice($request->input('count')));
     }
 }

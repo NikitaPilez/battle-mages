@@ -81,4 +81,13 @@ class SpellServices
         }
         return new SpellCardDeckCollection($query->get());
     }
+
+    public function rollDice(int $count): array
+    {
+        $values = [];
+        for($i = 0; $i < $count; $i++) {
+            $values[] = rand(1, 6);
+        }
+        return $values;
+    }
 }
