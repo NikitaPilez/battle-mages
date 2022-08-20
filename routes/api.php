@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Deck\SpellController;
+use App\Http\Controllers\Api\V1\Infection\InfectionController;
 use App\Http\Controllers\Api\V1\Room\RoomController;
 use App\Http\Controllers\Api\V1\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,10 @@ Route::prefix('v1')->group(function () {
             Route::post('deck/spell/ready-to-go', 'readyToGo');
             Route::get('deck/spell/roll-dice', 'rollDice');
             Route::get('deck/spell/play-card', 'playCard');
+        });
+
+        Route::controller(InfectionController::class)->group(function() {
+            Route::post('deck/infection/new', 'new');
         });
 //    });
 });
