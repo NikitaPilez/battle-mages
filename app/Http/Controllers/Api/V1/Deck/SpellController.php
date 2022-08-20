@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Spell\ChangeStatusRequest;
 use App\Http\Requests\V1\Spell\GetPlayerCardsRequest;
 use App\Http\Requests\V1\Spell\MakeReadyToGoRequest;
 use App\Http\Requests\V1\Spell\NewDeckRequest;
+use App\Http\Requests\V1\Spell\PlayCardRequest;
 use App\Http\Requests\V1\Spell\RollDiceRequest;
 use App\Services\V1\Deck\SpellServices;
 use Illuminate\Http\JsonResponse;
@@ -42,7 +43,7 @@ class SpellController extends BaseController
     public function readyToGo(MakeReadyToGoRequest $request, SpellServices $spellServices): JsonResponse
     {
         $request->validated();
-        $spellServices->makeReadyToGo($request->input('userId'));
+        $spellServices->makeReadyToGo($request->input('userId'), $request->input('roomId'));
         return $this->sendResponse(message: 'success');
     }
 
@@ -50,5 +51,10 @@ class SpellController extends BaseController
     {
         $request->validated();
         return $this->sendResponse($spellServices->rollDice($request->input('count')));
+    }
+
+    public function playCard(PlayCardRequest $request, SpellServices $spellServices)
+    {
+        $spellServices->playCard($request->input('spellCardDeckId'));
     }
 }

@@ -35,11 +35,11 @@ class SpellCardDeck extends Model
 
     public function scopeSpellsDeck($query, int $roomId)
     {
-        return $query->where('status', 'deck')->where('user_id', null)->where('room_id', '=', $roomId);
+        return $query->where('status', 'deck')->where('user_id', null)->where('room_id', $roomId);
     }
 
     public function scopeUserSpells($query, int $userId, int $roomId)
     {
-        return $query->where('user_id', '=', $userId)->where('room_id', '=', $roomId);
+        return $query->where('user_id', $userId)->where('room_id', $roomId);
     }
 }

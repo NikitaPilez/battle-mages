@@ -22,7 +22,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'room_id',
         'password',
     ];
 
@@ -44,9 +43,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function room(): BelongsTo
-    {
-        return $this->belongsTo(Room::class);
-    }
 }

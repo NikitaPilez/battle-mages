@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('rooms', function (Blueprint $table) {
-            $table->unsignedBigInteger('admin_user_id')->after('status')->nullable();
-            $table->foreign('admin_user_id')->references('id')->on('users')->nullOnDelete();
+            $table->unsignedBigInteger('admin_id')->after('status')->nullable();
+            $table->foreign('admin_id')->references('id')->on('users')->nullOnDelete();
+
+            $table->unsignedBigInteger('castle_owner_id')->after('status')->nullable();
+            $table->foreign('castle_owner_id')->references('id')->on('users')->nullOnDelete();
         });
     }
 

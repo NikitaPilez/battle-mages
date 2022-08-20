@@ -4,7 +4,7 @@ namespace App\Http\Requests\V1\Spell;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MakeReadyToGoRequest extends FormRequest
+class PlayCardRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class MakeReadyToGoRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId' => 'integer|required',
-            'roomId' => 'integer|required'
+            'spellCardDeckId' => 'required|integer'
         ];
     }
 }

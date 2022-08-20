@@ -23,9 +23,10 @@ Route::prefix('v1')->group(function () {
         Route::post('login', 'login');
     });
 
-    Route::middleware('auth:sanctum')->group(function () {
+//    Route::middleware('auth:sanctum')->group(function () {
         Route::controller(RoomController::class)->group(function() {
             Route::get('room', 'list');
+            Route::post('room/invite', 'invite');
             Route::post('room/store', 'store');
             Route::get('room/show/{roomId}', 'show');
             Route::put('room/update/{roomId}', 'update');
@@ -39,6 +40,7 @@ Route::prefix('v1')->group(function () {
             Route::get('deck/spell/player-cards', 'playerSpells');
             Route::post('deck/spell/ready-to-go', 'readyToGo');
             Route::get('deck/spell/roll-dice', 'rollDice');
+            Route::get('deck/spell/play-card', 'playCard');
         });
-    });
+//    });
 });

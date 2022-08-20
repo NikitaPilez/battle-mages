@@ -8,6 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Spell extends Model
 {
     use HasFactory;
-
-    public $table = 'spells';
 }
