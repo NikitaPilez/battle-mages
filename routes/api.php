@@ -46,6 +46,9 @@ Route::prefix('v1')->group(function () {
 
         Route::controller(InfectionController::class)->group(function() {
             Route::post('deck/infection/new', 'new');
+            Route::post('deck/infection/give', 'give');
+            Route::post('deck/infection/revoke', 'revoke');
+            Route::get('deck/infection/get-user-cards', 'getUserInfections');
         });
 //    });
 });

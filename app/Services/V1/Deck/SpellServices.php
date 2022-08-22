@@ -14,7 +14,7 @@ class SpellServices
 {
     public function newDeck(int $roomId)
     {
-        $this->clearDeckByRoom($roomId);
+        SpellCardDeck::where('room_id', $roomId)->delete();
         $spellCardDecks = collect();
         $spells = Spell::all();
         foreach ($spells as $spell) {
@@ -30,11 +30,6 @@ class SpellServices
         }
 
         return $spellCardDecks;
-    }
-
-    public function clearDeckByRoom(int $roomId): void
-    {
-        SpellCardDeck::where('room_id', $roomId)->delete();
     }
 
     public function handOut(int $roomId)
@@ -74,11 +69,14 @@ class SpellServices
         }
     }
 
-    public function getPlayerCards(int $userId, string $status = null)
+    public function getPlayerCards(int $userId, int $roomId = null, string $status = null)
     {
         $query = SpellCardDeck::where('user_id', $userId);
         if ($status !== null) {
             $query->where('status', $status);
+        }
+        if ($roomId !== null) {
+            $query->where('room_id', $roomId);
         }
         return new SpellCardDeckCollection($query->get());
     }

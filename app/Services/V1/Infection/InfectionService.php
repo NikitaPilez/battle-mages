@@ -2,6 +2,7 @@
 
 namespace App\Services\V1\Infection;
 
+use App\Http\Resources\V1\Infection\InfectionCardDeckCollection;
 use App\Models\V1\Infection\Infection;
 use App\Models\V1\Infection\InfectionCardDeck;
 
@@ -9,7 +10,7 @@ class InfectionService
 {
     public function newDeck(int $roomId)
     {
-        $this->clearDeckByRoom($roomId);
+        InfectionCardDeck::where('room_id', $roomId)->delete();
         $infectionCardDecks = collect();
         $infections = Infection::all();
         foreach ($infections as $infection) {
@@ -27,8 +28,38 @@ class InfectionService
         return $infectionCardDecks;
     }
 
-    public function clearDeckByRoom(int $roomId): void
+    public function give(int $userId, $infectionCardDeckId = null): InfectionCardDeck
     {
-        InfectionCardDeck::where('room_id', $roomId)->delete();
+        if ($infectionCardDeckId !== null) {
+            /** @var InfectionCardDeck $infectionCard */
+            $infectionCard = InfectionCardDeck::findOrFail($infectionCardDeckId);
+        } else {
+            /** @var InfectionCardDeck $infectionCard */
+            $infectionCard = InfectionCardDeck::all()->random(1)->first();
+        }
+        $infectionCard->user_id = $userId;
+        $infectionCard->status = 'on-hands';
+        $infectionCard->save();
+        return $infectionCard;
+    }
+
+    public function revoke(int $infectionCardDeckId)
+    {
+        $infectionCardDeck = InfectionCardDeck::findOrFail($infectionCardDeckId);
+        $infectionCardDeck->user_id = null;
+        $infectionCardDeck->status = 'deck';
+        $infectionCardDeck->save();
+    }
+
+    public function getPlayerCards(int $userId, int $roomId = null, string $status = null)
+    {
+        $query = InfectionCardDeck::where('user_id', $userId);
+        if ($roomId !== null) {
+            $query->where('room_id', $roomId);
+        }
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+        return new InfectionCardDeckCollection($query->get());
     }
 }

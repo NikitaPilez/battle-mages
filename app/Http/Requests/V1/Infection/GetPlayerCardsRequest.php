@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\V1\Spell;
+namespace App\Http\Requests\V1\Infection;
 
-use App\Models\V1\Deck\SpellCardDeck;
+use App\Models\V1\Infection\InfectionCardDeck;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -28,7 +28,7 @@ class GetPlayerCardsRequest extends FormRequest
         return [
             'userId' => 'required|integer',
             'roomId' => 'integer',
-            'status' => [Rule::in(SpellCardDeck::AVAILABLE_STATUSES)],
+            'status' => [Rule::in(InfectionCardDeck::AVAILABLE_STATUSES)],
         ];
     }
 }

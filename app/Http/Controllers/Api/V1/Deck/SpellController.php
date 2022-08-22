@@ -24,7 +24,7 @@ class SpellController extends BaseController
     public function playerSpells(GetPlayerCardsRequest $request, SpellServices $spellServices): JsonResponse
     {
         $request->validated();
-        $playerSpells = $spellServices->getPlayerCards($request->input('userId'), $request->input('status'));
+        $playerSpells = $spellServices->getPlayerCards($request->input('userId'), $request->input('roomId'), $request->input('status'));
         return response()->json($playerSpells);
     }
 

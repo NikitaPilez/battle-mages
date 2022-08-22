@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Spell;
+namespace App\Http\Requests\V1\Infection;
 
-use App\Models\V1\Deck\SpellCardDeck;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class GetPlayerCardsRequest extends FormRequest
+class RevokeInfectionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +25,7 @@ class GetPlayerCardsRequest extends FormRequest
     {
         return [
             'userId' => 'required|integer',
-            'roomId' => 'integer',
-            'status' => [Rule::in(SpellCardDeck::AVAILABLE_STATUSES)],
+            'infectionCardDeckId' => 'required|integer'
         ];
     }
 }

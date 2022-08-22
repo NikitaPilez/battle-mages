@@ -11,6 +11,8 @@ class InfectionCardDeck extends Model
 {
     use HasFactory;
 
+    const AVAILABLE_STATUSES = ['deck', 'on-hands'];
+
     public $table = 'infection_card_deck';
 
     public function user()
