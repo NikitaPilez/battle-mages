@@ -25,6 +25,7 @@ class GiveInfectionRequest extends FormRequest
     {
         return [
             'userId' => 'required|integer',
+            'roomId' => 'integer',
             'infectionCardDeckId' => 'integer'
         ];
     }

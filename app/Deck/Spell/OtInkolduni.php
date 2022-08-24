@@ -7,7 +7,7 @@ use App\Deck\CardsTypeEnum;
 
 class OtInkolduni extends AbstractSpell
 {
-    public function action(int $spellCardDeckId)
+    public function action(int $spellCardDeckId, $summRolledDice = null)
     {
 
     }

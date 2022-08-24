@@ -28,14 +28,14 @@ class InfectionService
         return $infectionCardDecks;
     }
 
-    public function give(int $userId, $infectionCardDeckId = null): InfectionCardDeck
+    public function give(int $userId, int $roomId, $infectionCardDeckId = null): InfectionCardDeck
     {
         if ($infectionCardDeckId !== null) {
             /** @var InfectionCardDeck $infectionCard */
             $infectionCard = InfectionCardDeck::findOrFail($infectionCardDeckId);
         } else {
             /** @var InfectionCardDeck $infectionCard */
-            $infectionCard = InfectionCardDeck::all()->random(1)->first();
+            $infectionCard = InfectionCardDeck::where('room_id', $roomId)->where('status', 'deck')->get()->random(1)->first();
         }
         $infectionCard->user_id = $userId;
         $infectionCard->status = 'on-hands';
@@ -51,7 +51,7 @@ class InfectionService
         $infectionCardDeck->save();
     }
 
-    public function getPlayerCards(int $userId, int $roomId = null, string $status = null)
+    public function getPlayerInfections(int $userId, int $roomId = null, string $status = null)
     {
         $query = InfectionCardDeck::where('user_id', $userId);
         if ($roomId !== null) {

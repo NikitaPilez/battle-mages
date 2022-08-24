@@ -24,7 +24,6 @@ class RevokeInfectionRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId' => 'required|integer',
             'infectionCardDeckId' => 'required|integer'
         ];
     }

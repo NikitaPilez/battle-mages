@@ -11,14 +11,17 @@ use App\Models\V1\Room\Room;
 use App\Services\V1\Room\RoomService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends BaseController
 {
     public function store(CreateRoomRequest $request): JsonResponse
     {
-        $request->validated();
-        $query = Room::create($request->all());
-        return $this->sendResponse(['id' => $query->id]);
+        $adminId = $request->has('adminId') ? $request->input('adminId') : Auth::user()->id;
+        return $this->sendResponse(Room::create([
+            'admin_id' => $adminId,
+            'key' => $request->input('key')
+        ]));
     }
 
     public function list(Request $request)
@@ -39,8 +42,7 @@ class RoomController extends BaseController
 
     public function show(int $roomId): RoomResource
     {
-        $room = Room::find($roomId);
-        return new RoomResource($room);
+        return new RoomResource(Room::findOrFail($roomId));
     }
 
     public function update(Request $request, int $roomId): RoomResource
@@ -59,7 +61,6 @@ class RoomController extends BaseController
 
     public function invite(InviteToRoomRequest $request, RoomService $roomService)
     {
-        $request->validated();
         $roomService->inviteToRoom($request->input('roomId'), $request->input('usersIds'));
         return $this->sendResponse(message: 'success');
     }

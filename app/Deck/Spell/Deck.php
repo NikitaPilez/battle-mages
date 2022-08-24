@@ -5,8 +5,9 @@ namespace App\Deck\Spell;
 class Deck
 {
     public const DECK = [
-        OtInkolduni::class,
         Merzopakostny::class,
+        OtInkolduni::class,
+        PotroshokZaPyatochok::class,
         ZlakManyak::class
     ];
 

@@ -17,13 +17,11 @@ class SpellController extends BaseController
 {
     public function new(NewDeckRequest $request, SpellServices $spellServices): JsonResponse
     {
-        $request->validated();
         return $this->sendResponse($spellServices->newDeck($request->input('roomId')));
     }
 
     public function playerSpells(GetPlayerCardsRequest $request, SpellServices $spellServices): JsonResponse
     {
-        $request->validated();
         $playerSpells = $spellServices->getPlayerCards($request->input('userId'), $request->input('roomId'), $request->input('status'));
         return response()->json($playerSpells);
     }
@@ -36,25 +34,22 @@ class SpellController extends BaseController
 
     public function changeStatus(ChangeStatusRequest $request, SpellServices $spellServices): JsonResponse
     {
-        $request->validated();
         return $this->sendResponse($spellServices->changeSpellStatus($request->input('spellCardDeckId'), $request->input('status')));
     }
 
     public function readyToGo(MakeReadyToGoRequest $request, SpellServices $spellServices): JsonResponse
     {
-        $request->validated();
-        $spellServices->makeReadyToGo($request->input('userId'), $request->input('roomId'));
+        $spellServices->makeReadyToGo($request->input('userRoomId'));
         return $this->sendResponse(message: 'success');
     }
 
     public function rollDice(RollDiceRequest $request, SpellServices $spellServices): JsonResponse
     {
-        $request->validated();
         return $this->sendResponse($spellServices->rollDice($request->input('count')));
     }
 
     public function playCard(PlayCardRequest $request, SpellServices $spellServices)
     {
-        $spellServices->playCard($request->input('spellCardDeckId'));
+        $spellServices->playCard($request->input('spellCardDeckId'), $request->input('summRolledDice'));
     }
 }

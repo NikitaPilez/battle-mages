@@ -24,8 +24,7 @@ class MakeReadyToGoRequest extends FormRequest
     public function rules()
     {
         return [
-            'userId' => 'integer|required',
-            'roomId' => 'integer|required'
+            'userRoomId' => 'integer|required'
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Services\V1\Deck;
 
 use App\Models\V1\Deck\SpellCardDeck;
-use App\Models\V1\User\Game;
+use App\Models\V1\User\UserRoom;
 
 class GameMovesServices
 {
@@ -12,9 +12,9 @@ class GameMovesServices
         $query = SpellCardDeck::query();
     }
 
-    public static function makeDamage(int $count, Game $userGame)
+    public static function makeDamage(int $count, UserRoom $userRoom)
     {
-        $userGame->health_points = $userGame->health_points - $count;
-        $userGame->save();
+        $userRoom->health_points = $userRoom->health_points - $count;
+        $userRoom->save();
     }
 }

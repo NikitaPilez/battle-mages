@@ -24,7 +24,8 @@ class PlayCardRequest extends FormRequest
     public function rules()
     {
         return [
-            'spellCardDeckId' => 'required|integer'
+            'spellCardDeckId' => 'required|integer',
+            'summRolledDice' => 'integer|max:30|min:1'
         ];
     }
 }

@@ -2,14 +2,14 @@
 
 namespace App\Services\V1\Room;
 
-use App\Models\V1\User\Game;
+use App\Models\V1\User\UserRoom;
 
 class RoomService
 {
     public function inviteToRoom(int $roomId, array $usersIds)
     {
         foreach ($usersIds as $userId) {
-            Game::create([
+            UserRoom::create([
                 'user_id' => $userId,
                 'room_id' => $roomId,
                 'health_points' => 20,

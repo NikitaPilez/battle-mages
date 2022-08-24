@@ -17,6 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('key');
             $table->boolean('status')->default(1)->nullable();
+
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->foreign('admin_id')->references('id')->on('users')->nullOnDelete();
+
+            $table->unsignedBigInteger('castle_owner_id')->nullable();
+            $table->foreign('castle_owner_id')->references('id')->on('users')->nullOnDelete();
+
             $table->timestamps();
         });
     }

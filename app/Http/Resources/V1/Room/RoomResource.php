@@ -19,6 +19,7 @@ class RoomResource extends JsonResource
             'key' => $this->key,
             'status' => $this->status,
             'admin' => $this->admin,
+            'castleOwner' => $this->castleOwner,
             'created_at' => $this->created_at->format('d.m.Y H:i'),
             'updated_at' => $this->updated_at->format('d.m.Y H:i'),
         ];

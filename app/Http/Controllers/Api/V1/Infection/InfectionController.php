@@ -26,18 +26,21 @@ class InfectionController extends BaseController
 
     public function give(GiveInfectionRequest $request): JsonResponse
     {
-        $infectionCard = $this->infectionService->give($request->input('infectionCardDeckId'), $request->input('userId'));
+        $infectionCard = $this->infectionService->give(
+            $request->input('userId'),
+            $request->input('roomId'),
+            $request->input('infectionCardDeckId'));
         return $this->sendResponse($infectionCard);
     }
 
     public function revoke(RevokeInfectionRequest $request): JsonResponse
     {
-        $this->infectionService->revoke($request->input('userId'), $request->input('infectionCardDeckId'));
+        $this->infectionService->revoke($request->input('infectionCardDeckId'));
         return $this->sendResponse(message: 'success');
     }
 
     public function getUserInfections(GetPlayerCardsRequest $request): JsonResponse
     {
-        return response()->json($this->infectionService->getPlayerCards($request->input('userId'), $request->input('roomId'), $request->input('status')));
+        return response()->json($this->infectionService->getPlayerInfections($request->input('userId'), $request->input('roomId'), $request->input('status')));
     }
 }

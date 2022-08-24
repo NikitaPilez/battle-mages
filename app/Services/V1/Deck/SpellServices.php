@@ -7,7 +7,8 @@ use App\Http\Resources\V1\Spells\SpellCardDeckCollection;
 use App\Http\Resources\V1\Spells\SpellCardDeckResource;
 use App\Models\V1\Deck\Spell;
 use App\Models\V1\Deck\SpellCardDeck;
-use App\Models\V1\User\Game;
+use App\Models\V1\Room\Room;
+use App\Models\V1\User\UserRoom;
 use Illuminate\Database\Eloquent\Collection;
 
 class SpellServices
@@ -36,14 +37,15 @@ class SpellServices
     {
         /** @var Collection $spellsFromDeck */
         $spellsFromDeck = SpellCardDeck::spellsDeck($roomId)->get();
-        $usersGame = Game::where('room_id', '=', $roomId)->get();
-        foreach($usersGame as $userGame) {
-            $countUserSpells = SpellCardDeck::userSpells($userGame->user->id, $roomId)->count();
+        $room = Room::findOrFail($roomId);
+        $usersRoom = $room->users;
+        foreach($usersRoom as $userRoom) {
+            $countUserSpells = SpellCardDeck::userSpells($userRoom->id, $roomId)->count();
             $countNeedCardReceiving = SpellCardDeck::AVAILABLE_AMOUNT_ON_HAND - $countUserSpells;
             for ($i = 0; $i < $countNeedCardReceiving; $i++) {
                 if (!$spellsFromDeck->isEmpty()) {
                     $spellItem = $spellsFromDeck->pop();
-                    $spellItem->user_id = $userGame->user->id;
+                    $spellItem->user_id = $userRoom->id;
                     $spellItem->status = 'on-hands';
                     $spellItem->save();
                 }
@@ -59,13 +61,13 @@ class SpellServices
         return new SpellCardDeckResource($spellCardDeck);
     }
 
-    public function makeReadyToGo(int $userId, int $roomId)
+    public function makeReadyToGo(int $userRoomId)
     {
-        $userGame = Game::where('user_id', $userId)->where('room_id', $roomId)->first();
-        $spellCardDeck = SpellCardDeck::where('user_id', $userGame->user->id)->where('room_id', $userGame->room->id)->where('status', '=', 'ready')->get();
-        if (!$spellCardDeck->count() > 3) {
-            $userGame->is_ready = 1;
-            $userGame->save();
+        $userRoom = UserRoom::findOrFail($userRoomId);
+        $spellCardDeck = SpellCardDeck::where('user_id', $userRoom->user->id)->where('room_id', $userRoom->room->id)->where('status', '=', 'ready')->get();
+        if ($spellCardDeck->count() < 4) {
+            $userRoom->is_ready = 1;
+            $userRoom->save();
         }
     }
 
@@ -90,10 +92,10 @@ class SpellServices
         return $values;
     }
 
-    public function playCard(int $spellCardDeckId)
+    public function playCard(int $spellCardDeckId, $summRolledDice = null)
     {
         $spellCardDeck = SpellCardDeck::findOrFail($spellCardDeckId);
         $obj = Deck::defineSpellByKey($spellCardDeck->spell->key);
-        $obj->action($spellCardDeckId);
+        $obj->action($spellCardDeckId, $summRolledDice);
     }
 }

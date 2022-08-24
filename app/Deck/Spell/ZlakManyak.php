@@ -10,16 +10,17 @@ use App\Services\V1\Deck\GameMovesServices;
 
 class ZlakManyak extends AbstractSpell
 {
-    public function action(int $spellCardDeckId, $summRolledDice = 0)
+    public function action(int $spellCardDeckId, $summRolledDice = null)
     {
-        $spellCardDeck = SpellCardDeck::findOrFail($spellCardDeckId);
-        $usersGame = Game::where('room_id', $spellCardDeck->room->id)->get();
+        $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
         if ($summRolledDice < 5) {
-            GameMovesServices::makeDamage(2, $spellCardDeck->user->id);
+            $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user->id)->first();
+            GameMovesServices::makeDamage(2, $myUserRoom);
         } elseif ($summRolledDice < 10) {
-            foreach($usersGame as $userGame) {
-                if ($userGame->user->id !== $spellCardDeck->user->id) {
-                    GameMovesServices::makeDamage(2, $userGame);
+            $victims = $spellCard->room->usersRoom;
+            foreach($victims as $victim) {
+                if ($victim->user->id !== $spellCard->user->id) {
+                    GameMovesServices::makeDamage(2, $victim);
                 }
             }
         }
