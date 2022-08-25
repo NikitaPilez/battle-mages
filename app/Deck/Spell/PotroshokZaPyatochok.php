@@ -22,7 +22,7 @@ class PotroshokZaPyatochok extends AbstractSpell
                 GameMovesServices::makeDamage(2, $victim);
             } elseif ($summRolledDice < 10) {
                 $infectionServices->give($victim->user_id, $victim->room_id);
-            } elseif ($summRolledDice < 30) {
+            } elseif ($summRolledDice < 31) {
                 GameMovesServices::makeDamage(2 * $myInfections->count(), $victim);
             }
         }

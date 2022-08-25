@@ -9,7 +9,6 @@ use App\Services\V1\Infection\InfectionService;
 
 class Analgilyator extends AbstractSpell
 {
-
     public function action(int $spellCardDeckId, $summRolledDice = null)
     {
         $infectionServices = new InfectionService();
@@ -22,7 +21,7 @@ class Analgilyator extends AbstractSpell
         } elseif ($summRolledDice < 10) {
             GameMovesServices::makeDamage(3, $enemy);
             // get jewel
-        } elseif ($summRolledDice < 30) {
+        } elseif ($summRolledDice < 31) {
             $myInfections = $infectionServices->getPlayerInfections($spellCard->user_id, $spellCard->room_id);
             GameMovesServices::makeDamage(2 * $myInfections->count(), $enemy);
         }

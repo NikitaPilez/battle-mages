@@ -2,12 +2,29 @@
 
 namespace App\Deck\Spell;
 
+use App\Models\V1\Deck\SpellCardDeck;
+use App\Models\V1\User\UserRoom;
+use App\Services\V1\Deck\GameMovesServices;
+use App\Services\V1\Infection\InfectionService;
+
 class Chlenomorf extends AbstractSpell
 {
 
     public function action(int $spellCardDeckId, $summRolledDice = null)
     {
-        // правый враг, 1-4 зпмп 5-9 2 урона 10+ 2 зпмп
+        $infectionServices = new InfectionService();
+        $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
+        $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user_id)->first();
+        /** @var UserRoom $enemy */
+        $enemy = GameMovesServices::getRightEnemy($myUserRoom);
+        if ($summRolledDice < 5) {
+            $infectionServices->give($enemy->user_id, $spellCard->room_id);
+        } elseif ($summRolledDice < 10) {
+            GameMovesServices::makeDamage(2, $enemy);
+        } elseif ($summRolledDice < 31) {
+            $infectionServices->give($enemy->user_id, $spellCard->room_id);
+            $infectionServices->give($enemy->user_id, $spellCard->room_id);
+        }
     }
 
     public function getKey()

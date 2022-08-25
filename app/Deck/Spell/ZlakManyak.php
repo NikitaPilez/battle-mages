@@ -15,10 +15,10 @@ class ZlakManyak extends AbstractSpell
             $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user_id)->first();
             GameMovesServices::makeDamage(2, $myUserRoom);
         } elseif ($summRolledDice < 10) {
-            $victims = $spellCard->room->usersRoom;
-            foreach($victims as $victim) {
-                if ($victim->user_id !== $spellCard->user_id) {
-                    GameMovesServices::makeDamage(2, $victim);
+            $enemies = $spellCard->room->usersRoom;
+            foreach($enemies as $enemy) {
+                if ($enemy->user_id !== $spellCard->user_id) {
+                    GameMovesServices::makeDamage(2, $enemy);
                 }
             }
         }
