@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('health_points')->default(0)->nullable();
             $table->integer('frags')->default(0)->nullable();
             $table->boolean('is_ready')->default(0)->nullable();
+            $table->integer('position')->nullable();
             $table->timestamps();
         });
     }

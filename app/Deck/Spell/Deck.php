@@ -5,6 +5,11 @@ namespace App\Deck\Spell;
 class Deck
 {
     public const DECK = [
+        Analgilyator::class,
+        Chlenomorf::class,
+        DosugSAsfiksiei::class,
+        Erogril::class,
+        Gigazip::class,
         Merzopakostny::class,
         OtInkolduni::class,
         PotroshokZaPyatochok::class,

@@ -54,5 +54,15 @@ class SpellSeeder extends Seeder
             'type' => 'sdf',
             'repeat' => 5
         ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Аналгилятор',
+            'description' => 'Тестовое описание',
+            'key' => 'analgilyator',
+            'image' => 'sdf',
+            'mark' => 'sdf',
+            'type' => 'sdf',
+            'repeat' => 5
+        ]);
     }
 }

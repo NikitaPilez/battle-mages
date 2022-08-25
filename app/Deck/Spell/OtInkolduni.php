@@ -9,7 +9,7 @@ class OtInkolduni extends AbstractSpell
 {
     public function action(int $spellCardDeckId, $summRolledDice = null)
     {
-
+        // каждый враг заражается одним зпмп за каждое свое сокровище если ни у кого нет сокровищ, возьми одно сокровище
     }
 
     public function getKey()

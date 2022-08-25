@@ -8,14 +8,17 @@ class RoomService
 {
     public function inviteToRoom(int $roomId, array $usersIds)
     {
+        $position = 1;
         foreach ($usersIds as $userId) {
             UserRoom::create([
                 'user_id' => $userId,
                 'room_id' => $roomId,
                 'health_points' => 20,
                 'frags' => 0,
-                'is_ready' => 0
+                'is_ready' => 0,
+                'position' => $position
             ]);
+            $position++;
         }
     }
 }

@@ -12,25 +12,23 @@ class PotroshokZaPyatochok extends AbstractSpell
     public function action(int $spellCardDeckId, $summRolledDice = null)
     {
         $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
-        $spellCardUser = $spellCard->user;
-        $spellCardRoom = $spellCard->room;
         $infectionServices = new InfectionService();
         $victimsRoom = $this->getVictims($spellCard);
-        $myInfections = $infectionServices->getPlayerInfections($spellCardUser->id, $spellCardRoom->id);
+        $myInfections = $infectionServices->getPlayerInfections($spellCard->user_id, $spellCard->room_id);
 
         /** @var UserRoom $victimsRoom */
         foreach ($victimsRoom as $victim) {
             if ($summRolledDice < 5) {
                 GameMovesServices::makeDamage(2, $victim);
             } elseif ($summRolledDice < 10) {
-                $infectionServices->give($victim->user->id, $victim->room->id);
+                $infectionServices->give($victim->user_id, $victim->room_id);
             } elseif ($summRolledDice < 30) {
                 GameMovesServices::makeDamage(2 * $myInfections->count(), $victim);
             }
         }
 
         if ($summRolledDice < 5) {
-            $infectionServices->give($spellCardUser->id, $spellCardRoom->id);
+            $infectionServices->give($spellCard->user_id, $spellCard->room_id);
         }
 
     }
@@ -42,13 +40,13 @@ class PotroshokZaPyatochok extends AbstractSpell
 
     private function getVictims(SpellCardDeck $spellCard)
     {
-        $spellCardUser = $spellCard->user;
+        $userId = $spellCard->user_id;
         $spellCardRoom = $spellCard->room;
-        if ($spellCardUser->id === $spellCardRoom->castleOwner?->id) {
-            return UserRoom::where('room_id', $spellCardRoom->id)->where('user_id', '!=', $spellCardUser->id)->get();
+        if ($userId === $spellCardRoom->castleOwner?->id) {
+            return UserRoom::where('room_id', $spellCard->room_id)->where('user_id', '!=', $spellCard->user_id)->get();
         } else {
-            $myUserGame = $spellCardRoom->usersRoom->where('user_id', $spellCardUser->id)->first();
-            return UserRoom::where('room_id', $spellCardRoom->id)->where('user_id', '!=', $spellCardUser->id)->where('health_points', '<', $myUserGame->health_points)->get();
+            $myUserGame = $spellCardRoom->usersRoom->where('user_id', $userId)->first();
+            return UserRoom::where('room_id', $spellCardRoom->id)->where('user_id', '!=', $userId)->where('health_points', '<', $myUserGame->health_points)->get();
         }
     }
 }
