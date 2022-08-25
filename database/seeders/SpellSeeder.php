@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Deck\CardsMarkEnum;
+use App\Deck\CardsTypeEnum;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,52 +18,102 @@ class SpellSeeder extends Seeder
     {
         DB::table('spells')->insert([
             'name' => 'Мерзопакостный',
-            'description' => 'Тестовое описание',
+            'description' => 'Нанеси 4 урона каждому колдуну, у которого есть 2 или больше ЗПМП (включая тебя). Нежданчик: если ты подох до применения эффектов этой карты, вылечи все свои ЗПМП и накрути столько же жизней.',
             'key' => 'merzopakostniy',
             'image' => 'sdf',
-            'mark' => 'sdf',
-            'type' => 'sdf',
-            'repeat' => 5
+            'mark' => CardsMarkEnum::Darkness->value,
+            'type' => CardsTypeEnum::LoveSpell->value,
+            'repeat' => 3
         ]);
 
         DB::table('spells')->insert([
             'name' => 'От инколдуньи',
-            'description' => 'Тестовое описание',
+            'description' => 'Каждый враг заражается одним ЗПМП за каждое свое сокровище. Если ни у кого нет сокровищ, возьми одно сокровище.',
             'key' => 'ot-inkolduni',
             'image' => 'sdf',
-            'mark' => 'sdf',
-            'type' => 'sdf',
-            'repeat' => 5
+            'mark' => CardsMarkEnum::Carbon->value,
+            'type' => CardsTypeEnum::Ringleader->value,
+            'repeat' => 3
         ]);
 
         DB::table('spells')->insert([
             'name' => 'Злак маньяк',
-            'description' => 'Тестовое описание',
+            'description' => 'Жертва: Каждый враг. Могучий бросок: (1-4) Ты отхватываешь 2 урона. (5-9) 2 урона (10+) 1 ЗПМП. СТОЯТЬ!',
             'key' => 'zlak-manyak',
             'image' => 'sdf',
-            'mark' => 'sdf',
-            'type' => 'sdf',
-            'repeat' => 5
+            'mark' => CardsMarkEnum::Darkness->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
         ]);
 
         DB::table('spells')->insert([
             'name' => 'Потрошок за пяточок',
-            'description' => 'Тестовое описание',
+            'description' => 'Жертва: враг хилее тебя. Замок: жертвами становятся все враги. Могучий бросок: (1-4) 2 урона,а ты заражаешься одним ЗПМП, (5-9) 1 ЗПМП, (10+) 2 урона за каждое твое ЗПМП. ',
             'key' => 'potroshok-za-pyatochok',
             'image' => 'sdf',
-            'mark' => 'sdf',
-            'type' => 'sdf',
-            'repeat' => 5
+            'mark' => CardsMarkEnum::Darkness->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
         ]);
 
         DB::table('spells')->insert([
             'name' => 'Аналгилятор',
-            'description' => 'Тестовое описание',
+            'description' => 'Жертва: левый враг. Могучий бросок: (1-4) 2 урона, (5-9) 3 урона, а ты берешь 1 сокровище, (10+) 2 урона, за каждое твоё ЗПМП',
             'key' => 'analgilyator',
             'image' => 'sdf',
-            'mark' => 'sdf',
-            'type' => 'sdf',
-            'repeat' => 5
+            'mark' => CardsMarkEnum::Damage->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
+        ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Членоморф',
+            'description' => 'Жертва: правый враг. Могучий бросок: (1-4) 1 ЗПМП (5-9) 2 урона, (10+) 2 ЗПМП',
+            'key' => 'chlenomorf',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Darkness->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
+        ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Досуг с асфиксией',
+            'description' => 'Жертва: враг с сокровищем. Замок: жертвами становятся все враги. Могучий бросок: (1-4) Захвати замок (5-9) 2 урона, (10+) 2 урона, 1 ЗПМП',
+            'key' => 'dosug-s-asfiksiei',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Damage->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
+        ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Эрогриль',
+            'description' => 'Жертва: левый враг. Могучий бросок: (1-4) Ты берешь 1 сокровище (5-9) 2 урона (10+) 2 урона за каждое твое ЗПМП',
+            'key' => 'erogril',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Carbon->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
+        ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Гигацип',
+            'description' => 'Жертва: правый враг. Могучий бросок: (1-4) 2 урона (5-9) 2 ЗПМП (10+) 3 урона, СТОЯТЬ!',
+            'key' => 'gigazip',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Grass->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
+        ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Раскулатор',
+            'description' => 'Жертва: каждый враг с 10 жизнями или больше. Замок: жертвами становятся все враги. Могучий бросок: (1-4) 1 урон (5-9) 2 урона, (10+) 2 урона, 1 ЗПМП.',
+            'key' => 'raskulator',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Kumar->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
         ]);
     }
 }

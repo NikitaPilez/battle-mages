@@ -9,7 +9,6 @@ use App\Services\V1\Infection\InfectionService;
 
 class Chlenomorf extends AbstractSpell
 {
-
     public function action(int $spellCardDeckId, $summRolledDice = null)
     {
         $infectionServices = new InfectionService();

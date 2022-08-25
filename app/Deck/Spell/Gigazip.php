@@ -9,7 +9,6 @@ use App\Services\V1\Infection\InfectionService;
 
 class Gigazip extends AbstractSpell
 {
-
     public function action(int $spellCardDeckId, $summRolledDice = null)
     {
         $infectionServices = new InfectionService();

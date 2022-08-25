@@ -13,6 +13,7 @@ class Deck
         Merzopakostny::class,
         OtInkolduni::class,
         PotroshokZaPyatochok::class,
+        Raskulator::class,
         ZlakManyak::class
     ];
 
