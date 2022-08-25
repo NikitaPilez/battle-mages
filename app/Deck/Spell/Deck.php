@@ -8,6 +8,7 @@ class Deck
         Analgilyator::class,
         Chlenomorf::class,
         DosugSAsfiksiei::class,
+        Eldovzriv::class,
         Erogril::class,
         Gigazip::class,
         Merzopakostny::class,

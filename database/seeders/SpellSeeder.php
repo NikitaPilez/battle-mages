@@ -115,5 +115,15 @@ class SpellSeeder extends Seeder
             'type' => CardsTypeEnum::Coming->value,
             'repeat' => 3
         ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Елдовзрыв',
+            'description' => 'Жертва: левый враг. Могучий бросок: (1-4) 1 урон (5-9) 1 урон, 1 ЗПМП (10+) 2 урона за каждое твое ЗПМП.',
+            'key' => 'eldovzriv',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Kumar->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 3
+        ]);
     }
 }
