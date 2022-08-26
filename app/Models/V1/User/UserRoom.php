@@ -42,11 +42,4 @@ class UserRoom extends Pivot
     {
         return $this->hasMany(Damages::class, 'user_room_id');
     }
-
-    public function getHealth()
-    {
-        /** @var Damages $lastDamage */
-        $lastDamage = $this->damages()->orderByDesc('id')->first();
-        return $lastDamage->health_after ?? self::START_HEALTH;
-    }
 }

@@ -13,7 +13,7 @@ class RoomService
             UserRoom::create([
                 'user_id' => $userId,
                 'room_id' => $roomId,
-                'health_points' => 20,
+                'health_points' => UserRoom::START_HEALTH,
                 'frags' => 0,
                 'is_ready' => 0,
                 'position' => $position

@@ -9,8 +9,8 @@ class GameMovesServices
 {
     public static function makeDamage(int $amount, UserRoom $userRoom, string $comment = null)
     {
-        $userHealth = $userRoom->getHealth();
-        $userRoom->health_points = ($userHealth + $amount);
+        $userHealth = $userRoom->health_points;
+        $userRoom->health_points = $userHealth + $amount;
         $userRoom->save();
 
         Damages::create([
