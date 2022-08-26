@@ -23,7 +23,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Darkness->value,
             'type' => CardsTypeEnum::LoveSpell->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -33,7 +33,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Carbon->value,
             'type' => CardsTypeEnum::Ringleader->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -43,7 +43,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Darkness->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -53,7 +53,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Darkness->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -63,7 +63,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Damage->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -73,7 +73,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Darkness->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -83,7 +83,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Damage->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -93,7 +93,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Carbon->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -103,7 +103,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Grass->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -113,7 +113,7 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Kumar->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
         ]);
 
         DB::table('spells')->insert([
@@ -123,7 +123,17 @@ class SpellSeeder extends Seeder
             'image' => 'sdf',
             'mark' => CardsMarkEnum::Kumar->value,
             'type' => CardsTypeEnum::Coming->value,
-            'repeat' => 3
+            'repeat' => 2
+        ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Золотой душ',
+            'description' => 'Жертва: враг живучее тебя. Замок: жертвами становятся все враги. Могучий бросок: (1-4) 1 ЗПМП (5-9) 3 урона (10+) 3 урона, 1 ЗПМП',
+            'key' => 'zolotoi-dush',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Grass->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 2
         ]);
     }
 }

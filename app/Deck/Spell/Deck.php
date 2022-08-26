@@ -15,7 +15,8 @@ class Deck
         OtInkolduni::class,
         PotroshokZaPyatochok::class,
         Raskulator::class,
-        ZlakManyak::class
+        ZlakManyak::class,
+        ZolotoiDush::class
     ];
 
     public static function defineSpellByKey(string $key)
