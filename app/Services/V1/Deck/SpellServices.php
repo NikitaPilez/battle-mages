@@ -3,6 +3,7 @@
 namespace App\Services\V1\Deck;
 
 use App\Deck\Spell\Deck;
+use App\Events\SpellPlayed;
 use App\Http\Resources\V1\Spells\SpellCardDeckCollection;
 use App\Http\Resources\V1\Spells\SpellCardDeckResource;
 use App\Models\V1\Deck\Spell;
@@ -94,8 +95,10 @@ class SpellServices
 
     public function playCard(SpellCardDeck $spellCard, $summRolledDice = null)
     {
-        $obj = Deck::defineSpellByKey($spellCard->spell->key);
-        $obj->action($spellCard, $summRolledDice);
-
+//        $obj = Deck::defineSpellByKey($spellCard->spell->key);
+//        $obj->action($spellCard, $summRolledDice);
+//        $spellCard->status = 'played';
+//        $spellCard->save();
+        SpellPlayed::dispatch($spellCard);
     }
 }

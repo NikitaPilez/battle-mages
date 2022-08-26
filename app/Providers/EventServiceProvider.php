@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\SpellPlayed;
+use App\Listeners\ChangeStatusAfterSpellPlayed;
+use App\Listeners\MakeDamageAfterSpellPlayed;
+use App\Listeners\SpellPlayedSubscriber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,7 +22,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        SpellPlayed::class => [
+            ChangeStatusAfterSpellPlayed::class,
+            MakeDamageAfterSpellPlayed::class
+        ]
     ];
+
+//    protected $subscribe = [
+//        SpellPlayedSubscriber::class
+//    ];
 
     /**
      * Register any events for your application.
