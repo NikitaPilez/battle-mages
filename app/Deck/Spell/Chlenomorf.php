@@ -17,12 +17,12 @@ class Chlenomorf extends AbstractSpell
         /** @var UserRoom $enemy */
         $enemy = GameMovesServices::getRightEnemy($myUserRoom);
         if ($summRolledDice < 5) {
-            $infectionServices->give($enemy->user_id, $spellCard->room_id);
+            $infectionServices->give($enemy);
         } elseif ($summRolledDice < 10) {
             GameMovesServices::makeDamage(-2, $enemy);
         } elseif ($summRolledDice < 31) {
-            $infectionServices->give($enemy->user_id, $spellCard->room_id);
-            $infectionServices->give($enemy->user_id, $spellCard->room_id);
+            $infectionServices->give($enemy);
+            $infectionServices->give($enemy);
         }
     }
 

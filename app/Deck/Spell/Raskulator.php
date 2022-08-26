@@ -22,7 +22,7 @@ class Raskulator extends AbstractSpell
                 GameMovesServices::makeDamage(-2, $enemy);
             } elseif ($summRolledDice < 31) {
                 GameMovesServices::makeDamage(-2, $enemy);
-                $infectionServices->give($enemy->user_id, $enemy->room_id);
+                $infectionServices->give($enemy);
             }
         }
     }

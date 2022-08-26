@@ -18,12 +18,12 @@ class ZolotoiDush extends AbstractSpell
         /** @var UserRoom $enemiesRoom */
         foreach ($enemiesRoom as $enemy) {
             if ($summRolledDice < 5) {
-                $infectionServices->give($enemy->user_id, $enemy->room_id);
+                $infectionServices->give($enemy);
             } elseif ($summRolledDice < 10) {
                 GameMovesServices::makeDamage(-3, $enemy);
             } elseif ($summRolledDice < 31) {
                 GameMovesServices::makeDamage(-3, $enemy);
-                $infectionServices->give($enemy->user_id, $enemy->room_id);
+                $infectionServices->give($enemy);
             }
         }
     }

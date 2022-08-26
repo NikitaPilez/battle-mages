@@ -19,8 +19,8 @@ class Gigazip extends AbstractSpell
         if ($summRolledDice < 5) {
             GameMovesServices::makeDamage(-2, $enemy);
         } elseif ($summRolledDice < 10) {
-            $infectionServices->give($enemy->user_id, $spellCard->room_id);
-            $infectionServices->give($enemy->user_id, $spellCard->room_id);
+            $infectionServices->give($enemy);
+            $infectionServices->give($enemy);
         } elseif ($summRolledDice < 31) {
             GameMovesServices::makeDamage(-3, $enemy);
             // stop

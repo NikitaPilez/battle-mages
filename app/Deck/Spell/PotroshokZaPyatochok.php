@@ -13,17 +13,17 @@ class PotroshokZaPyatochok extends AbstractSpell
     {
         $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
         $infectionServices = new InfectionService();
-        $victimsRoom = $this->getVictims($spellCard);
+        $enemies = $this->getEnemies($spellCard);
         $myInfections = $infectionServices->getPlayerInfections($spellCard->user_id, $spellCard->room_id);
 
-        /** @var UserRoom $victimsRoom */
-        foreach ($victimsRoom as $victim) {
+        /** @var UserRoom $enemies */
+        foreach ($enemies as $enemy) {
             if ($summRolledDice < 5) {
-                GameMovesServices::makeDamage(-2, $victim);
+                GameMovesServices::makeDamage(-2, $enemy);
             } elseif ($summRolledDice < 10) {
-                $infectionServices->give($victim->user_id, $victim->room_id);
+                $infectionServices->give($enemy);
             } elseif ($summRolledDice < 31) {
-                GameMovesServices::makeDamage(-2 * $myInfections->count(), $victim);
+                GameMovesServices::makeDamage(-2 * $myInfections->count(), $enemy);
             }
         }
 
@@ -38,7 +38,7 @@ class PotroshokZaPyatochok extends AbstractSpell
         return 'potroshok-za-pyatochok';
     }
 
-    private function getVictims(SpellCardDeck $spellCard)
+    private function getEnemies(SpellCardDeck $spellCard)
     {
         $userId = $spellCard->user_id;
         $spellCardRoom = $spellCard->room;

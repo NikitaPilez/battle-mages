@@ -20,7 +20,7 @@ class Eldovzriv extends AbstractSpell
             GameMovesServices::makeDamage(-1, $enemy);
         } elseif ($summRolledDice < 10) {
             GameMovesServices::makeDamage(-1, $enemy);
-            $infectionServices->give($enemy->user_id, $spellCard->room_id);
+            $infectionServices->give($enemy);
         } elseif ($summRolledDice < 31) {
             $myInfections = $infectionServices->getPlayerInfections($spellCard->user_id, $spellCard->room_id);
             GameMovesServices::makeDamage(-2 * $myInfections->count(), $enemy);

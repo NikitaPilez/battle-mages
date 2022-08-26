@@ -5,6 +5,7 @@ namespace App\Services\V1\Infection;
 use App\Http\Resources\V1\Infection\InfectionCardDeckCollection;
 use App\Models\V1\Infection\Infection;
 use App\Models\V1\Infection\InfectionCardDeck;
+use App\Models\V1\User\UserRoom;
 
 class InfectionService
 {
@@ -28,16 +29,16 @@ class InfectionService
         return $infectionCardDecks;
     }
 
-    public function give(int $userId, int $roomId, $infectionCardDeckId = null): InfectionCardDeck
+    public function give(UserRoom $userRoom, $infectionCardDeckId = null): InfectionCardDeck
     {
         if ($infectionCardDeckId !== null) {
             /** @var InfectionCardDeck $infectionCard */
             $infectionCard = InfectionCardDeck::findOrFail($infectionCardDeckId);
         } else {
             /** @var InfectionCardDeck $infectionCard */
-            $infectionCard = InfectionCardDeck::where('room_id', $roomId)->where('status', 'deck')->get()->random(1)->first();
+            $infectionCard = InfectionCardDeck::where('room_id', $userRoom->room_id)->where('status', 'deck')->get()->random(1)->first();
         }
-        $infectionCard->user_id = $userId;
+        $infectionCard->user_id = $userRoom->user_id;
         $infectionCard->status = 'on-hands';
         $infectionCard->save();
         return $infectionCard;
