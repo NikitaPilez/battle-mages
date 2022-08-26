@@ -9,9 +9,8 @@ use App\Services\V1\Infection\InfectionService;
 
 class PotroshokZaPyatochok extends AbstractSpell
 {
-    public function action(int $spellCardDeckId, $summRolledDice = null)
+    public function action(SpellCardDeck $spellCard, $summRolledDice = null)
     {
-        $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
         $infectionServices = new InfectionService();
         $enemies = $this->getEnemies($spellCard);
         $myInfections = $infectionServices->getPlayerInfections($spellCard->user_id, $spellCard->room_id);

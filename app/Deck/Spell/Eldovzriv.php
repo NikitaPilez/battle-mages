@@ -9,10 +9,9 @@ use App\Services\V1\Infection\InfectionService;
 
 class Eldovzriv extends AbstractSpell
 {
-    public function action(int $spellCardDeckId, $summRolledDice = null)
+    public function action(SpellCardDeck $spellCard, $summRolledDice = null)
     {
         $infectionServices = new InfectionService();
-        $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
         $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user_id)->first();
         /** @var UserRoom $enemy */
         $enemy = GameMovesServices::getLeftEnemy($myUserRoom);

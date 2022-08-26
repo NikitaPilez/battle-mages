@@ -9,10 +9,9 @@ use App\Services\V1\Infection\InfectionService;
 
 class Raskulator extends AbstractSpell
 {
-    public function action(int $spellCardDeckId, $summRolledDice = null)
+    public function action(SpellCardDeck $spellCard, $summRolledDice = null)
     {
         $infectionServices = new InfectionService();
-        $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
         $enemies = $this->getEnemies($spellCard);
         /** @var UserRoom $enemies */
         foreach ($enemies as $enemy) {

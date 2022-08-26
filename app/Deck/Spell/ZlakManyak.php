@@ -8,9 +8,8 @@ use App\Services\V1\Deck\GameMovesServices;
 
 class ZlakManyak extends AbstractSpell
 {
-    public function action(int $spellCardDeckId, $summRolledDice = null)
+    public function action(SpellCardDeck $spellCard, $summRolledDice = null)
     {
-        $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
         if ($summRolledDice < 5) {
             $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user_id)->first();
             GameMovesServices::makeDamage(-2, $myUserRoom);

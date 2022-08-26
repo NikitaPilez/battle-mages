@@ -92,10 +92,10 @@ class SpellServices
         return $values;
     }
 
-    public function playCard(int $spellCardDeckId, $summRolledDice = null)
+    public function playCard(SpellCardDeck $spellCard, $summRolledDice = null)
     {
-        $spellCardDeck = SpellCardDeck::findOrFail($spellCardDeckId);
-        $obj = Deck::defineSpellByKey($spellCardDeck->spell->key);
-        $obj->action($spellCardDeckId, $summRolledDice);
+        $obj = Deck::defineSpellByKey($spellCard->spell->key);
+        $obj->action($spellCard, $summRolledDice);
+
     }
 }

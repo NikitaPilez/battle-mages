@@ -9,9 +9,8 @@ use App\Services\V1\Infection\InfectionService;
 
 class ZolotoiDush extends AbstractSpell
 {
-    public function action(int $spellCardDeckId, $summRolledDice = null)
+    public function action(SpellCardDeck $spellCard, $summRolledDice = null)
     {
-        $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
         $infectionServices = new InfectionService();
         $enemiesRoom = $this->getEnemies($spellCard);
 
