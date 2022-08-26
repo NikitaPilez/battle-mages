@@ -2,14 +2,24 @@
 
 namespace App\Services\V1\Deck;
 
+use App\Models\V1\Room\Damages;
 use App\Models\V1\User\UserRoom;
 
 class GameMovesServices
 {
-    public static function makeDamage(int $count, UserRoom $userRoom)
+    public static function makeDamage(int $amount, UserRoom $userRoom, string $comment = null)
     {
-        $userRoom->health_points = $userRoom->health_points - $count;
+        $userHealth = $userRoom->getHealth();
+        $userRoom->health_points = ($userHealth + $amount);
         $userRoom->save();
+
+        Damages::create([
+            'user_room_id' => $userRoom->id,
+            'health_before' => $userHealth,
+            'health_after' => $userHealth + $amount,
+            'amount' => $amount,
+            'comment' => $comment
+        ]);
     }
 
     public static function getRightEnemy(UserRoom $userRoom)

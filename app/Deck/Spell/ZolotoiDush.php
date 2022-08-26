@@ -20,9 +20,9 @@ class ZolotoiDush extends AbstractSpell
             if ($summRolledDice < 5) {
                 $infectionServices->give($enemy->user_id, $enemy->room_id);
             } elseif ($summRolledDice < 10) {
-                GameMovesServices::makeDamage(3, $enemy);
+                GameMovesServices::makeDamage(-3, $enemy);
             } elseif ($summRolledDice < 31) {
-                GameMovesServices::makeDamage(3, $enemy);
+                GameMovesServices::makeDamage(-3, $enemy);
                 $infectionServices->give($enemy->user_id, $enemy->room_id);
             }
         }

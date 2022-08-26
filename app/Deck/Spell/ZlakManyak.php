@@ -13,12 +13,12 @@ class ZlakManyak extends AbstractSpell
         $spellCard = SpellCardDeck::findOrFail($spellCardDeckId);
         if ($summRolledDice < 5) {
             $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user_id)->first();
-            GameMovesServices::makeDamage(2, $myUserRoom);
+            GameMovesServices::makeDamage(-2, $myUserRoom);
         } elseif ($summRolledDice < 10) {
             $enemies = $spellCard->room->usersRoom;
             foreach($enemies as $enemy) {
                 if ($enemy->user_id !== $spellCard->user_id) {
-                    GameMovesServices::makeDamage(2, $enemy);
+                    GameMovesServices::makeDamage(-2, $enemy);
                 }
             }
         }

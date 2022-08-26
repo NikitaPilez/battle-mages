@@ -19,11 +19,11 @@ class PotroshokZaPyatochok extends AbstractSpell
         /** @var UserRoom $victimsRoom */
         foreach ($victimsRoom as $victim) {
             if ($summRolledDice < 5) {
-                GameMovesServices::makeDamage(2, $victim);
+                GameMovesServices::makeDamage(-2, $victim);
             } elseif ($summRolledDice < 10) {
                 $infectionServices->give($victim->user_id, $victim->room_id);
             } elseif ($summRolledDice < 31) {
-                GameMovesServices::makeDamage(2 * $myInfections->count(), $victim);
+                GameMovesServices::makeDamage(-2 * $myInfections->count(), $victim);
             }
         }
 

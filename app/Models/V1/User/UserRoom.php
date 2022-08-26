@@ -2,6 +2,7 @@
 
 namespace App\Models\V1\User;
 
+use App\Models\V1\Room\Damages;
 use App\Models\V1\Room\Room;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -11,6 +12,8 @@ class UserRoom extends Pivot
     use HasFactory;
 
     protected $table = 'users_rooms';
+
+    CONST START_HEALTH = 20;
 
     /**
      * The attributes that are mass assignable.
@@ -33,5 +36,17 @@ class UserRoom extends Pivot
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function damages()
+    {
+        return $this->hasMany(Damages::class, 'user_room_id');
+    }
+
+    public function getHealth()
+    {
+        /** @var Damages $lastDamage */
+        $lastDamage = $this->damages()->orderByDesc('id')->first();
+        return $lastDamage->health_after ?? self::START_HEALTH;
     }
 }

@@ -17,11 +17,11 @@ class Raskulator extends AbstractSpell
         /** @var UserRoom $enemies */
         foreach ($enemies as $enemy) {
             if ($summRolledDice < 5) {
-                GameMovesServices::makeDamage(1, $enemy);
+                GameMovesServices::makeDamage(-1, $enemy);
             } elseif ($summRolledDice < 10) {
-                GameMovesServices::makeDamage(2, $enemy);
+                GameMovesServices::makeDamage(-2, $enemy);
             } elseif ($summRolledDice < 31) {
-                GameMovesServices::makeDamage(2, $enemy);
+                GameMovesServices::makeDamage(-2, $enemy);
                 $infectionServices->give($enemy->user_id, $enemy->room_id);
             }
         }
