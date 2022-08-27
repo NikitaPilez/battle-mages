@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
+            $table->string('key');
             $table->boolean('is_eternal');
             $table->string('mark');
             $table->integer('repeat');

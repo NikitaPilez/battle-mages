@@ -13,7 +13,8 @@ class PotroshokZaPyatochok extends AbstractSpell
     {
         $infectionServices = new InfectionService();
         $enemies = $this->getEnemies($spellCard);
-        $myInfections = $infectionServices->getPlayerInfections($spellCard->user_id, $spellCard->room_id);
+        $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user_id)->first();
+        $myInfections = $infectionServices->getPlayerInfections($myUserRoom);
 
         /** @var UserRoom $enemies */
         foreach ($enemies as $enemy) {

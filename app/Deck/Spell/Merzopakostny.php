@@ -12,7 +12,7 @@ class Merzopakostny extends AbstractSpell
     {
         $infectionService = new InfectionService();
         foreach($spellCard->room->usersRoom as $userRoom) {
-            $userInfections = $infectionService->getPlayerInfections($userRoom->user->id, $userRoom->room->id);
+            $userInfections = $infectionService->getPlayerInfections($userRoom);
             if ($userInfections->count() > 1) {
                 GameMovesServices::makeDamage(-4, $userRoom);
             }

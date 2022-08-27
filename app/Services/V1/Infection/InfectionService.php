@@ -52,15 +52,12 @@ class InfectionService
         $infectionCardDeck->save();
     }
 
-    public function getPlayerInfections(int $userId, int $roomId = null, string $status = null)
+    public function getPlayerInfections(UserRoom $userRoom, array $statuses = null)
     {
-        $query = InfectionCardDeck::where('user_id', $userId);
-        if ($roomId !== null) {
-            $query->where('room_id', $roomId);
+        $query = InfectionCardDeck::where('user_id', $userRoom->user_id)->where('room_id', $userRoom->room_id);
+        if ($statuses !== null) {
+            $query->whereIn('status', $statuses);
         }
-        if ($status !== null) {
-            $query->where('status', $status);
-        }
-        return new InfectionCardDeckCollection($query->get());
+        return $query->get();
     }
 }

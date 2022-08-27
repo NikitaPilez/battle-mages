@@ -21,7 +21,7 @@ class Analgilyator extends AbstractSpell
             GameMovesServices::makeDamage(-3, $enemy);
             // get jewel
         } elseif ($summRolledDice < 31) {
-            $myInfections = $infectionServices->getPlayerInfections($spellCard->user_id, $spellCard->room_id);
+            $myInfections = $infectionServices->getPlayerInfections($myUserRoom);
             GameMovesServices::makeDamage(-2 * $myInfections->count(), $enemy);
         }
     }

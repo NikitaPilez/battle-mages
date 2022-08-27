@@ -7,6 +7,7 @@ use App\Http\Requests\V1\Infection\GetPlayerCardsRequest;
 use App\Http\Requests\V1\Infection\GiveInfectionRequest;
 use App\Http\Requests\V1\Infection\NewDeckRequest;
 use App\Http\Requests\V1\Infection\RevokeInfectionRequest;
+use App\Http\Resources\V1\Infection\InfectionCardDeckCollection;
 use App\Models\V1\User\UserRoom;
 use App\Services\V1\Infection\InfectionService;
 use Illuminate\Http\JsonResponse;
@@ -40,6 +41,8 @@ class InfectionController extends BaseController
 
     public function getUserInfections(GetPlayerCardsRequest $request): JsonResponse
     {
-        return response()->json($this->infectionService->getPlayerInfections($request->input('userId'), $request->input('roomId'), $request->input('status')));
+        $userRoom = UserRoom::where('user_id', $request->input('userId'))->where('room_id', $request->input('roomId'))->first();
+        $userInfections = $this->infectionService->getPlayerInfections($userRoom, $request->input('statuses'));
+        return response()->json(new InfectionCardDeckCollection($userInfections));
     }
 }

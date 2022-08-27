@@ -6,29 +6,30 @@ use App\Models\V1\Room\Room;
 use App\Models\V1\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SpellCardDeck extends Model
 {
     use HasFactory;
 
     const AVAILABLE_AMOUNT_ON_HAND = 8;
-    const AVAILABLE_STATUSES = ['deck', 'on-hands', 'ready', 'in-game', 'trash'];
+    const AVAILABLE_STATUSES = ['deck', 'on-hands', 'ready', 'played', 'in-game', 'trash'];
 
     public $table = 'spell_card_deck';
 
     public $fillable = ['status'];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function room()
+    public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);
     }
 
-    public function spell()
+    public function spell(): BelongsTo
     {
         return $this->belongsTo(Spell::class);
     }
