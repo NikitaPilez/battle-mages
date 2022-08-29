@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Support\Facades\DB;
 
 class UserRoom extends Pivot
 {
@@ -16,6 +17,7 @@ class UserRoom extends Pivot
     protected $table = 'users_rooms';
 
     CONST START_HEALTH = 20;
+    CONST AVAILABLE_AMOUNT_ON_HAND = 8;
 
     /**
      * The attributes that are mass assignable.
@@ -43,5 +45,21 @@ class UserRoom extends Pivot
     public function damages(): HasMany
     {
         return $this->hasMany(Damages::class, 'user_room_id');
+    }
+
+    public function allowedCountSpells()
+    {
+        return $this->getCountMyInfections('kristinka') > 0 ? self::AVAILABLE_AMOUNT_ON_HAND - 2 : self::AVAILABLE_AMOUNT_ON_HAND;
+    }
+
+    public function getCountMyInfections(string $key = null)
+    {
+        $query = DB::table('infection_card_deck')
+            ->where('user_id', $this->user_id)
+            ->where('room_id', $this->room_id);
+        if ($key !== null) {
+            $query->join('infections', 'infections.id', '=', 'infection_card_deck.infection_id')->where('key', $key);
+        }
+        return $query->count();
     }
 }

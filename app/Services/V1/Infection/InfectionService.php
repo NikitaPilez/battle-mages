@@ -2,7 +2,6 @@
 
 namespace App\Services\V1\Infection;
 
-use App\Http\Resources\V1\Infection\InfectionCardDeckCollection;
 use App\Models\V1\Infection\Infection;
 use App\Models\V1\Infection\InfectionCardDeck;
 use App\Models\V1\User\UserRoom;

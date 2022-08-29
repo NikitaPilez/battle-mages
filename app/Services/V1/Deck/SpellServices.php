@@ -39,10 +39,10 @@ class SpellServices
         /** @var Collection $spellsFromDeck */
         $spellsFromDeck = SpellCardDeck::spellsDeck($roomId)->get();
         $room = Room::findOrFail($roomId);
-        $usersRoom = $room->users;
-        foreach($usersRoom as $userRoom) {
-            $countUserSpells = SpellCardDeck::userSpells($userRoom->id, $roomId)->count();
-            $countNeedCardReceiving = SpellCardDeck::AVAILABLE_AMOUNT_ON_HAND - $countUserSpells;
+        /** @var UserRoom $userRoom */
+        foreach($room->usersRoom as $userRoom) {
+            $countUserSpells = SpellCardDeck::userSpells($userRoom->user_id, $roomId)->count();
+            $countNeedCardReceiving = $userRoom->allowedCountSpells() - $countUserSpells;
             for ($i = 0; $i < $countNeedCardReceiving; $i++) {
                 if (!$spellsFromDeck->isEmpty()) {
                     $spellItem = $spellsFromDeck->pop();
