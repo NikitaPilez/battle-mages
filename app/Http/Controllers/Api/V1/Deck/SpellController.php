@@ -10,7 +10,6 @@ use App\Http\Requests\V1\Spell\NewDeckRequest;
 use App\Http\Requests\V1\Spell\PlayCardRequest;
 use App\Http\Requests\V1\Spell\RollDiceRequest;
 use App\Models\V1\Deck\SpellCardDeck;
-use App\Models\V1\User\UserRoom;
 use App\Services\V1\Deck\SpellServices;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

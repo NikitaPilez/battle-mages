@@ -62,4 +62,14 @@ class UserRoom extends Pivot
         }
         return $query->count();
     }
+
+    public function canHealthGrow(): bool
+    {
+        $query = DB::table('infection_card_deck')
+            ->where('user_id', $this->user_id)
+            ->where('room_id', $this->room_id)
+            ->join('infections', 'infections.id', '=', 'infection_card_deck.infection_id')
+            ->where('key', 'shkoda');
+        return $query->count() === 0;
+    }
 }
