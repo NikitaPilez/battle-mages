@@ -29,4 +29,19 @@ class InfectionCardDeck extends Model
     {
         return $this->belongsTo(Infection::class);
     }
+
+    public function scopeUserInfections($query, int $userId, int $roomId, string $status = null)
+    {
+        $query->where('user_id', $userId)->where('room_id', $roomId);
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+    }
+
+    public function cureInfection()
+    {
+        $this->user_id = null;
+        $this->status = 'deck';
+        $this->save();
+    }
 }

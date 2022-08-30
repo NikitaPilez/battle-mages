@@ -28,7 +28,7 @@ class GetPlayerCardsRequest extends FormRequest
         return [
             'userId' => 'required|integer',
             'roomId' => 'integer',
-            'statuses' => [Rule::in(InfectionCardDeck::AVAILABLE_STATUSES)],
+            'status' => [Rule::in(InfectionCardDeck::AVAILABLE_STATUSES)],
         ];
     }
 }

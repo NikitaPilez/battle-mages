@@ -3,6 +3,7 @@
 namespace App\Deck\Spell;
 
 use App\Models\V1\Deck\SpellCardDeck;
+use App\Models\V1\Infection\InfectionCardDeck;
 use App\Models\V1\User\UserRoom;
 use App\Services\V1\Deck\GameMovesServices;
 use App\Services\V1\Infection\InfectionService;
@@ -21,8 +22,8 @@ class Eldovzriv extends AbstractSpell
             GameMovesServices::makeDamage(-1, $enemy);
             $infectionServices->give($enemy);
         } elseif ($summRolledDice < 31) {
-            $myInfections = $infectionServices->getPlayerInfections($myUserRoom);
-            GameMovesServices::makeDamage(-2 * $myInfections->count(), $enemy);
+            $countUserInfections = InfectionCardDeck::userInfections($myUserRoom->user_id, $myUserRoom->room_id)->count();
+            GameMovesServices::makeDamage(-2 * $countUserInfections, $enemy);
         }
     }
 

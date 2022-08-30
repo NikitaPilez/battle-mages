@@ -11,6 +11,7 @@ class Deck
         Eldovzriv::class,
         Erogril::class,
         Gigazip::class,
+        Kotoklizm::class,
         Merzopakostny::class,
         OtInkolduni::class,
         PotroshokZaPyatochok::class,

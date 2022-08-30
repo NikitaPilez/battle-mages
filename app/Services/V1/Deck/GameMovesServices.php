@@ -9,21 +9,17 @@ class GameMovesServices
 {
     public static function makeDamage(int $amount, UserRoom $userRoom, string $comment = null)
     {
-        if (($amount > 0) && !$userRoom->canHealthGrow()) {
-            // TODO can't health grow
-        } else {
-            $userHealth = $userRoom->health_points;
-            $userRoom->health_points = $userHealth + $amount;
-            $userRoom->save();
+        $userHealth = $userRoom->health_points;
+        $userRoom->health_points = $userHealth + $amount;
+        $userRoom->save();
 
-            Damages::create([
-                'user_room_id' => $userRoom->id,
-                'health_before' => $userHealth,
-                'health_after' => $userHealth + $amount,
-                'amount' => $amount,
-                'comment' => $comment
-            ]);
-        }
+        Damages::create([
+            'user_room_id' => $userRoom->id,
+            'health_before' => $userHealth,
+            'health_after' => $userHealth + $amount,
+            'amount' => $amount,
+            'comment' => $comment
+        ]);
     }
 
     public static function getRightEnemy(UserRoom $userRoom)

@@ -135,5 +135,15 @@ class SpellSeeder extends Seeder
             'type' => CardsTypeEnum::Coming->value,
             'repeat' => 2
         ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Котоклизм',
+            'description' => 'Жертва: ты сам. Могучий бросок: (1-4) вылечи 1 свое ЗПМП (5-9) накрути 3 жизни (10+) вылечи все свои ЗПМП',
+            'key' => 'kotoklizm',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Grass->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 2
+        ]);
     }
 }

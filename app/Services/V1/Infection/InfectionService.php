@@ -50,13 +50,4 @@ class InfectionService
         $infectionCardDeck->status = 'deck';
         $infectionCardDeck->save();
     }
-
-    public function getPlayerInfections(UserRoom $userRoom, array $statuses = null)
-    {
-        $query = InfectionCardDeck::where('user_id', $userRoom->user_id)->where('room_id', $userRoom->room_id);
-        if ($statuses !== null) {
-            $query->whereIn('status', $statuses);
-        }
-        return $query->get();
-    }
 }

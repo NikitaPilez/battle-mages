@@ -3,17 +3,16 @@
 namespace App\Deck\Spell;
 
 use App\Models\V1\Deck\SpellCardDeck;
+use App\Models\V1\Infection\InfectionCardDeck;
 use App\Services\V1\Deck\GameMovesServices;
-use App\Services\V1\Infection\InfectionService;
 
 class Merzopakostny extends AbstractSpell
 {
     public function action(SpellCardDeck $spellCard, $summRolledDice = null)
     {
-        $infectionService = new InfectionService();
         foreach($spellCard->room->usersRoom as $userRoom) {
-            $userInfections = $infectionService->getPlayerInfections($userRoom);
-            if ($userInfections->count() > 1) {
+            $countUserInfections = InfectionCardDeck::userInfections($userRoom->user_id, $userRoom->room_id)->count();
+            if ($countUserInfections > 1) {
                 GameMovesServices::makeDamage(-4, $userRoom);
             }
         }

@@ -3,6 +3,7 @@
 namespace App\Deck\Spell;
 
 use App\Models\V1\Deck\SpellCardDeck;
+use App\Models\V1\Infection\InfectionCardDeck;
 use App\Models\V1\User\UserRoom;
 use App\Services\V1\Deck\GameMovesServices;
 use App\Services\V1\Infection\InfectionService;
@@ -14,8 +15,7 @@ class PotroshokZaPyatochok extends AbstractSpell
         $infectionServices = new InfectionService();
         $enemies = $this->getEnemies($spellCard);
         $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user_id)->first();
-        $myInfections = $infectionServices->getPlayerInfections($myUserRoom);
-
+        $countMyInfections = InfectionCardDeck::userInfections($myUserRoom->user_id, $myUserRoom->room_id)->count();
         /** @var UserRoom $enemies */
         foreach ($enemies as $enemy) {
             if ($summRolledDice < 5) {
@@ -23,7 +23,7 @@ class PotroshokZaPyatochok extends AbstractSpell
             } elseif ($summRolledDice < 10) {
                 $infectionServices->give($enemy);
             } elseif ($summRolledDice < 31) {
-                GameMovesServices::makeDamage(-2 * $myInfections->count(), $enemy);
+                GameMovesServices::makeDamage(-2 * $countMyInfections, $enemy);
             }
         }
 
