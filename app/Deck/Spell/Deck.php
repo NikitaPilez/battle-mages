@@ -14,8 +14,10 @@ class Deck
         Kotoklizm::class,
         Merzopakostny::class,
         OtInkolduni::class,
+        PilkiiOrgazm::class,
         PotroshokZaPyatochok::class,
         Raskulator::class,
+        Strupnii::class,
         ZlakManyak::class,
         ZolotoiDush::class
     ];

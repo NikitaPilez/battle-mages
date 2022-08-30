@@ -145,5 +145,25 @@ class SpellSeeder extends Seeder
             'type' => CardsTypeEnum::Coming->value,
             'repeat' => 2
         ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Пылкий оргазм',
+            'description' => 'Жертва: правый враг. Могучий бросок: (1-4) 2 урона (5-9) 3 урона (10+) 2 урона 1 ЗПМП',
+            'key' => 'pilkii-orgazm',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Carbon->value,
+            'type' => CardsTypeEnum::Coming->value,
+            'repeat' => 2
+        ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Струпный',
+            'description' => 'Нанеси 1 урон самому хилому врагу за каждое его ЗПМП. Если у него их нет он заражается одним ЗПМП.',
+            'key' => 'strupnii',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Carbon->value,
+            'type' => CardsTypeEnum::LoveSpell->value,
+            'repeat' => 2
+        ]);
     }
 }
