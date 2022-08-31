@@ -165,5 +165,25 @@ class SpellSeeder extends Seeder
             'type' => CardsTypeEnum::LoveSpell->value,
             'repeat' => 2
         ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Рукастый',
+            'description' => 'Добавь к своему заклинанию тварь с руки. Если у тебя нет ЗПМП,в этот ход она получает команду СТОЯТЬ! Нежданчик: если ты подох до применения эффектов этой карты,вылечи все свои ЗПМП и накрути столько же жизней',
+            'key' => 'rukastii',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Kumar->value,
+            'type' => CardsTypeEnum::LoveSpell->value,
+            'repeat' => 2
+        ]);
+
+        DB::table('spells')->insert([
+            'name' => 'Поддатенький',
+            'description' => 'Накрути 3 жизни. Если у тебя нет ЗПМП захвати замок. Нежданчик: если ты подох до применения эффектов этой карты,вылечи все свои ЗПМП и накрути столько же жизней.',
+            'key' => 'poddatenkii',
+            'image' => 'sdf',
+            'mark' => CardsMarkEnum::Grass->value,
+            'type' => CardsTypeEnum::LoveSpell->value,
+            'repeat' => 2
+        ]);
     }
 }

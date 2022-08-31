@@ -3,6 +3,7 @@
 namespace App\Services\V1\Deck;
 
 use App\Models\V1\Room\Damages;
+use App\Models\V1\Room\Room;
 use App\Models\V1\User\UserRoom;
 
 class GameMovesServices
@@ -44,5 +45,13 @@ class GameMovesServices
         } else {
             return UserRoom::where('room_id', $roomId)->where('health_points', '>', 0)->where('position', '>', $myPosition)->orderBy('position', 'ASC')->first();
         }
+    }
+
+    public static function takeCastle(UserRoom $userRoom)
+    {
+        /** @var Room $room */
+        $room = $userRoom->room;
+        $room->castle_owner_id = $userRoom->user_id;
+        $room->save();
     }
 }
