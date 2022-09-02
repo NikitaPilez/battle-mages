@@ -14,9 +14,8 @@ class Poddatenkii extends AbstractSpell
     {
         /** @var UserRoom $myUserRoom */
         $myUserRoom = $spellCard->room->usersRoom->where('user_id', $spellCard->user_id)->first();
-        $myUserRoom->canHealthGrow() ? GameMovesServices::makeDamage(3, $myUserRoom) : '';
-        $countMyInfections = InfectionCardDeck::userInfections($myUserRoom->user_id, $myUserRoom->room_id)->count();
-        $countMyInfections > 0 ? GameMovesServices::takeCastle($myUserRoom) : '';
+        !$myUserRoom->canHealthGrow() ?: GameMovesServices::makeDamage(3, $myUserRoom);
+        InfectionCardDeck::userInfections($myUserRoom->user_id, $myUserRoom->room_id)->count() > 0 ?: GameMovesServices::takeCastle($myUserRoom);
     }
 
     public function getKey()
