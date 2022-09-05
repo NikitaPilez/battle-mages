@@ -15,11 +15,6 @@ class RoomCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'current_page' => $this->currentPage(),
-            'from' => $this->firstItem(),
-            'per_page' => $this->perPage(),
-            'to' => $this->lastItem(),
-            'total' => $this->total(),
             'data' => RoomResource::collection($this->collection),
         ];
     }

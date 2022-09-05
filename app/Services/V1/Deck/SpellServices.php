@@ -95,10 +95,10 @@ class SpellServices
 
     public function playCard(SpellCardDeck $spellCard, $summRolledDice = null)
     {
-//        $obj = Deck::defineSpellByKey($spellCard->spell->key);
-//        $obj->action($spellCard, $summRolledDice);
-//        $spellCard->status = 'played';
-//        $spellCard->save();
+        $obj = Deck::defineSpellByKey($spellCard->spell->key);
+        $obj->action($spellCard, $summRolledDice);
+        $spellCard->status = 'played';
+        $spellCard->save();
         SpellPlayed::dispatch($spellCard);
     }
 }

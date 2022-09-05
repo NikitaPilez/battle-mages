@@ -24,7 +24,8 @@ class CreateRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'key' => 'required'
+            'key' => 'required',
+            'admin_id' => 'integer'
         ];
     }
 }

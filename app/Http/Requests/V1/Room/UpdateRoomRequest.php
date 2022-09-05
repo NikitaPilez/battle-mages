@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\V1\Infection;
+namespace App\Http\Requests\V1\Room;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RevokeInfectionRequest extends FormRequest
+class UpdateRoomRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class RevokeInfectionRequest extends FormRequest
     public function rules()
     {
         return [
-            'infectionCardDeckId' => 'required|integer'
+            'key' => 'string',
+            'status' => 'string',
+            'admin_id' => 'integer',
+            'castle_owner_id' => 'integer'
         ];
     }
 }

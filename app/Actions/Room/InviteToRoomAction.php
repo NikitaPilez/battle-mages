@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\V1\Room;
+namespace App\Actions\Room;
 
 use App\Models\V1\User\UserRoom;
 
-class RoomService
+class InviteToRoomAction
 {
-    public function inviteToRoom(int $roomId, array $usersIds)
+    public function execute(int $roomId, array $usersIds)
     {
         $position = 1;
         foreach ($usersIds as $userId) {

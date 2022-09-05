@@ -42,12 +42,4 @@ class InfectionService
         $infectionCard->save();
         return $infectionCard;
     }
-
-    public function revoke(int $infectionCardDeckId)
-    {
-        $infectionCardDeck = InfectionCardDeck::findOrFail($infectionCardDeckId);
-        $infectionCardDeck->user_id = null;
-        $infectionCardDeck->status = 'deck';
-        $infectionCardDeck->save();
-    }
 }

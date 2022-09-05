@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Infection;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\V1\Infection\GetPlayerCardsRequest;
 use App\Http\Requests\V1\Infection\GiveInfectionRequest;
 use App\Http\Requests\V1\Infection\NewDeckRequest;
-use App\Http\Requests\V1\Infection\RevokeInfectionRequest;
 use App\Http\Resources\V1\Infection\InfectionCardDeckCollection;
 use App\Models\V1\Infection\InfectionCardDeck;
 use App\Models\V1\User\UserRoom;
@@ -34,9 +32,9 @@ class InfectionController extends BaseController
         return $this->sendResponse($infectionCard);
     }
 
-    public function revoke(RevokeInfectionRequest $request): JsonResponse
+    public function revoke(InfectionCardDeck $infectionCardDeck): JsonResponse
     {
-        $this->infectionService->revoke($request->input('infectionCardDeckId'));
+        $infectionCardDeck->cureInfection();
         return $this->sendResponse(message: 'success');
     }
 

@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Deck;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Api\V1\BaseController;
 use App\Http\Requests\V1\Spell\ChangeStatusRequest;
 use App\Http\Requests\V1\Spell\GetPlayerCardsRequest;
 use App\Http\Requests\V1\Spell\MakeReadyToGoRequest;

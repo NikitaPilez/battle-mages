@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\V1\Deck\SpellController;
-use App\Http\Controllers\Api\V1\Infection\InfectionController;
-use App\Http\Controllers\Api\V1\Room\RoomController;
-use App\Http\Controllers\Api\V1\User\UserController;
+use App\Http\Controllers\Api\V1\InfectionController;
+use App\Http\Controllers\Api\V1\RoomController;
+use App\Http\Controllers\Api\V1\SpellController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +29,9 @@ Route::prefix('v1')->group(function () {
             Route::get('room', 'list');
             Route::post('room/invite', 'invite');
             Route::post('room/store', 'store');
-            Route::get('room/show/{roomId}', 'show');
-            Route::put('room/update/{roomId}', 'update');
-            Route::delete('room/delete/{roomId}', 'delete');
+            Route::get('room/show/{room}', 'show');
+            Route::put('room/update/{room}', 'update');
+            Route::delete('room/delete/{room}', 'delete');
         });
 
         Route::controller(SpellController::class)->group(function() {
@@ -47,7 +47,7 @@ Route::prefix('v1')->group(function () {
         Route::controller(InfectionController::class)->group(function() {
             Route::post('deck/infection/new', 'new');
             Route::post('deck/infection/give', 'give');
-            Route::post('deck/infection/revoke', 'revoke');
+            Route::post('deck/infection/revoke/{infectionCardDeck}', 'revoke');
             Route::get('deck/infection/get-user-cards', 'getUserInfections');
         });
 //    });
