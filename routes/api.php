@@ -20,35 +20,35 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
 
     Route::controller(UserController::class)->group(function(){
-        Route::post('register', 'register');
-        Route::post('login', 'login');
+        Route::post('users/register', 'register');
+        Route::post('users/login', 'login');
     });
 
 //    Route::middleware('auth:sanctum')->group(function () {
         Route::controller(RoomController::class)->group(function() {
-            Route::get('room', 'list');
-            Route::post('room/invite', 'invite');
-            Route::post('room/store', 'store');
-            Route::get('room/show/{room}', 'show');
-            Route::put('room/update/{room}', 'update');
-            Route::delete('room/delete/{room}', 'delete');
+            Route::get('rooms', 'list');
+            Route::post('rooms/invite', 'invite');
+            Route::post('rooms/store', 'store');
+            Route::get('rooms/show/{room}', 'show');
+            Route::put('rooms/update/{room}', 'update');
+            Route::delete('rooms/delete/{room}', 'delete');
         });
 
         Route::controller(SpellController::class)->group(function() {
-            Route::post('deck/spell/new', 'new');
-            Route::post('deck/spell/handOut', 'handOut');
-            Route::post('deck/spell/changeStatus', 'changeStatus');
-            Route::get('deck/spell/player-cards', 'playerSpells');
-            Route::post('deck/spell/ready-to-go', 'readyToGo');
-            Route::get('deck/spell/roll-dice', 'rollDice');
-            Route::get('deck/spell/play-card', 'playCard');
+            Route::post('spells/new', 'new');
+            Route::post('spells/handOut', 'handOut');
+            Route::post('spells/changeStatus', 'changeStatus');
+            Route::get('spells/player-cards', 'playerSpells');
+            Route::post('spells/ready-to-go', 'readyToGo');
+            Route::get('spells/roll-dice', 'rollDice');
+            Route::get('spells/play-card', 'playCard');
         });
 
         Route::controller(InfectionController::class)->group(function() {
-            Route::post('deck/infection/new', 'new');
-            Route::post('deck/infection/give', 'give');
-            Route::post('deck/infection/revoke/{infectionCardDeck}', 'revoke');
-            Route::get('deck/infection/get-user-cards', 'getUserInfections');
+            Route::post('infections/new', 'new');
+            Route::post('infections/give', 'give');
+            Route::post('infections/revoke/{infectionCardDeck}', 'revoke');
+            Route::get('infections/get-user-cards', 'getUserInfections');
         });
 //    });
 });
