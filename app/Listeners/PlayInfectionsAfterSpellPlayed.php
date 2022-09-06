@@ -29,7 +29,7 @@ class PlayInfectionsAfterSpellPlayed
     public function handle(SpellPlayed $event)
     {
         $spellCard = $event->spellCard;
-        $remainReadySpells = SpellCardDeck::where('room_id', $spellCard->room_id)->where('user_id', $spellCard->user_id)->where('status', 'ready')->count();
+        $remainReadySpells = SpellCardDeck::userSpells($spellCard->user_id, $spellCard->room_id)->where('status', 'ready')->count();
         if ($remainReadySpells === 0) {
             $userRoom = UserRoom::where('room_id', $spellCard->room_id)->where('user_id', $spellCard->user_id)->first();
             $myInfections = InfectionCardDeck::userInfections($userRoom->user_id, $userRoom->room_id)->get();

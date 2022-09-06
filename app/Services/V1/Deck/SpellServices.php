@@ -22,11 +22,11 @@ class SpellServices
         foreach ($spells as $spell) {
             $repeat = $spell->repeat;
             for ($i = 0; $i < $repeat; $i++) {
-                $spellCardDeck = new SpellCardDeck();
-                $spellCardDeck->room_id = $roomId;
-                $spellCardDeck->spell_id = $spell->id;
-                $spellCardDeck->status = 'deck';
-                $spellCardDeck->save();
+                $spellCardDeck = new SpellCardDeck([
+                    'room_id' => $roomId,
+                    'spell_id' => $spell->id,
+                    'status' => 'deck'
+                ]);
                 $spellCardDecks->push($spellCardDeck);
             }
         }
@@ -97,8 +97,6 @@ class SpellServices
     {
         $obj = Deck::defineSpellByKey($spellCard->spell->key);
         $obj->action($spellCard, $summRolledDice);
-        $spellCard->status = 'played';
-        $spellCard->save();
         SpellPlayed::dispatch($spellCard);
     }
 }

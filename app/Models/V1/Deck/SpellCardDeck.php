@@ -16,7 +16,13 @@ class SpellCardDeck extends Model
 
     public $table = 'spell_card_deck';
 
-    public $fillable = ['status'];
+    public $fillable = [
+        'spell_id',
+        'room_id',
+        'user_id',
+        'is_stand',
+        'status'
+    ];
 
     public function user(): BelongsTo
     {
@@ -41,5 +47,11 @@ class SpellCardDeck extends Model
     public function scopeUserSpells($query, int $userId, int $roomId)
     {
         return $query->where('user_id', $userId)->where('room_id', $roomId);
+    }
+
+    public function stay()
+    {
+        $this->is_stand = 1;
+        $this->save();
     }
 }

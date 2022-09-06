@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Events\SpellPlayed;
+use App\Listeners\ChangeSpellStatusAfterSpellPlayed;
 use App\Listeners\PlayInfectionsAfterSpellPlayed;
-use App\Listeners\SpellPlayedSubscriber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,7 +22,8 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         SpellPlayed::class => [
-            PlayInfectionsAfterSpellPlayed::class
+            PlayInfectionsAfterSpellPlayed::class,
+            ChangeSpellStatusAfterSpellPlayed::class
         ]
     ];
 

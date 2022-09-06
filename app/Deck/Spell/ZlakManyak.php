@@ -24,7 +24,7 @@ class ZlakManyak extends AbstractSpell
             foreach($enemies as $enemy) {
                 $infectionService->give($enemy);
             }
-            // stop
+            $spellCard->stay();
         }
     }
 
