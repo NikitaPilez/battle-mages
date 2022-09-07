@@ -53,4 +53,9 @@ class SpellController extends BaseController
         $spellCard = SpellCardDeck::findOrFail($request->input('spellCardDeckId'));
         $spellServices->playCard($spellCard, $request->input('summRolledDice'));
     }
+
+    public function getUniqueMarks()
+    {
+        //
+    }
 }

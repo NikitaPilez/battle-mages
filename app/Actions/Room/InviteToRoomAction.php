@@ -2,6 +2,7 @@
 
 namespace App\Actions\Room;
 
+use App\Jobs\WelcomeMailJob;
 use App\Models\V1\User\UserRoom;
 
 class InviteToRoomAction
@@ -10,7 +11,7 @@ class InviteToRoomAction
     {
         $position = 1;
         foreach ($usersIds as $userId) {
-            UserRoom::create([
+            $userRoom = UserRoom::create([
                 'user_id' => $userId,
                 'room_id' => $roomId,
                 'health_points' => UserRoom::START_HEALTH,
@@ -19,6 +20,7 @@ class InviteToRoomAction
                 'position' => $position
             ]);
             $position++;
+            WelcomeMailJob::dispatch($userRoom);
         }
     }
 }

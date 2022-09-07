@@ -14,6 +14,7 @@ class UserRoom extends Pivot
 {
     use HasFactory;
 
+    public $incrementing = true;
     protected $table = 'users_rooms';
 
     CONST START_HEALTH = 20;
