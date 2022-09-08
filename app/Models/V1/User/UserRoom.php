@@ -30,7 +30,8 @@ class UserRoom extends Pivot
         'room_id',
         'health_points',
         'frags',
-        'is_ready'
+        'is_ready',
+        'position'
     ];
 
     public function room(): BelongsTo

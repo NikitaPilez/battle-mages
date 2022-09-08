@@ -20,7 +20,7 @@ class InviteToRoomAction
                 'position' => $position
             ]);
             $position++;
-            WelcomeMailJob::dispatch($userRoom);
+            WelcomeMailJob::dispatch($userRoom)->onQueue('emails');
         }
     }
 }
