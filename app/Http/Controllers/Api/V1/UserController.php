@@ -2,46 +2,31 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Models\V1\User\User;
+use App\Actions\User\LoginUserAction;
+use App\Actions\User\RegisterUserAction;
+use App\Actions\User\VerifyEmailAction;
+use App\Http\Requests\V1\User\LoginUserRequest;
+use App\Http\Requests\V1\User\RegisterUserRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends BaseController
 {
-    public function register(Request $request): JsonResponse
+    public function register(RegisterUserRequest $request, RegisterUserAction $registerUserAction): JsonResponse
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:8|max:32',
-        ]);
-
-        if($validator->fails()){
-            return $this->sendError('Validation Error', $validator->errors());
-        }
-
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Hash::make($request->input('password'))
-        ]);
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return $this->sendResponse(['token' => $token], 'User register successfully');
+        $result = $registerUserAction->execute($request->validated());
+        return $this->sendResponse($result, 'User register successfully');
     }
 
-    public function login(Request $request): JsonResponse
+    public function login(LoginUserRequest $request, LoginUserAction $loginUserAction): JsonResponse
     {
-        if(!Auth::attempt($request->only('email', 'password'))){
-            return $this->sendError('Unauthorised');
-        }
-        else {
-            $user = User::where('email', $request->input('email'))->firstOrFail();
-            $token = $user->createToken('auth_token')->plainTextToken;
-            return $this->sendResponse(['token' => $token]);
-        }
+        $result = $loginUserAction->execute($request->validated());
+        return $result['success'] ? $this->sendResponse($result) : $this->sendError($result);
+    }
+
+    public function verify(Request $request, VerifyEmailAction $verifyEmailAction): JsonResponse
+    {
+        $message = $verifyEmailAction->execute($request->id);
+        return $this->sendResponse(message: $message);
     }
 }

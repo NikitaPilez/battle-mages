@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\VerifyEmailController;
 use App\Http\Controllers\Api\V1\InfectionController;
 use App\Http\Controllers\Api\V1\RoomController;
 use App\Http\Controllers\Api\V1\SpellController;
@@ -22,6 +23,8 @@ Route::prefix('v1')->group(function () {
     Route::controller(UserController::class)->group(function(){
         Route::post('users/register', 'register');
         Route::post('users/login', 'login');
+        Route::get('/verify-email/{id}/{hash}', 'verify')
+            ->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
     });
 
 //    Route::middleware('auth:sanctum')->group(function () {
