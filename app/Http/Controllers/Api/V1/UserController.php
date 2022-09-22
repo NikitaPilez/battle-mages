@@ -7,6 +7,7 @@ use App\Actions\User\RegisterUserAction;
 use App\Actions\User\VerifyEmailAction;
 use App\Http\Requests\V1\User\LoginUserRequest;
 use App\Http\Requests\V1\User\RegisterUserRequest;
+use App\Models\V1\User\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,11 @@ class UserController extends BaseController
     {
         $result = $loginUserAction->execute($request->validated());
         return $result['success'] ? $this->sendResponse($result) : $this->sendError($result);
+    }
+
+    public function user(User $user): JsonResponse
+    {
+        return $this->sendResponse($user);
     }
 
     public function verify(Request $request, VerifyEmailAction $verifyEmailAction): JsonResponse

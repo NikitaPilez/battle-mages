@@ -23,6 +23,7 @@ Route::prefix('v1')->group(function () {
     Route::controller(UserController::class)->group(function(){
         Route::post('users/register', 'register');
         Route::post('users/login', 'login');
+        Route::get('users/{user}', 'user');
         Route::get('/verify-email/{id}/{hash}', 'verify')
             ->middleware(['signed', 'throttle:6,1'])->name('verification.verify');
     });
